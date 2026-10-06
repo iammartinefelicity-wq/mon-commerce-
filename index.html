@@ -4,200 +4,1333 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mon Commerce</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f5f6f8;color:#222}
-header{background:#111;color:white;padding:20px;text-align:center}
-nav{display:flex;gap:6px;overflow:auto;background:white;padding:10px}
-nav button{border:0;background:#eee;padding:10px 14px;border-radius:10px;white-space:nowrap}
-main{padding:15px;max-width:700px;margin:auto}
+body{
+ margin:0;
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+ background:#f4f5f7;
+ color:#171717;
+}
+header{
+ background:#111;
+ color:white;
+ padding:22px 18px;
+ border-radius:0 0 24px 24px;
+}
+header h1{margin:0;font-size:25px}
+header p{margin:6px 0 0;color:#ccc;font-size:14px}
+
+nav{
+ display:flex;
+ gap:8px;
+ overflow-x:auto;
+ background:white;
+ padding:10px;
+ position:sticky;
+ top:0;
+ z-index:10;
+ box-shadow:0 2px 8px #ddd;
+}
+nav button{
+ border:0;
+ background:#eee;
+ padding:10px 14px;
+ border-radius:12px;
+ white-space:nowrap;
+ font-weight:600;
+}
+nav button.active{background:#111;color:white}
+
+main{max-width:850px;margin:auto;padding:15px}
 section{display:none}
 section.active{display:block}
-.card{background:white;padding:18px;margin:12px 0;border-radius:16px;box-shadow:0 2px 8px #ddd}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stat{font-size:24px;font-weight:bold;margin-top:6px}
-input,select{width:100%;padding:12px;margin:7px 0;border:1px solid #ddd;border-radius:10px}
-button.action{width:100%;padding:13px;border:0;border-radius:10px;background:#111;color:white;margin-top:8px}
-.item{padding:12px;border-bottom:1px solid #eee}
-.small{color:#666;font-size:13px}
+
+.card{
+ background:white;
+ padding:18px;
+ margin:12px 0;
+ border-radius:18px;
+ box-shadow:0 3px 12px rgba(0,0,0,.07);
+}
+.card h2{margin-top:0}
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+}
+.stat{
+ background:#fafafa;
+ padding:15px;
+ border-radius:15px;
+}
+.stat strong{
+ display:block;
+ font-size:21px;
+ margin-top:6px;
+}
+input,select,textarea{
+ width:100%;
+ padding:13px;
+ margin:6px 0;
+ border:1px solid #ddd;
+ border-radius:11px;
+ font-size:15px;
+ background:white;
+}
+textarea{min-height:90px}
+button.action{
+ width:100%;
+ padding:14px;
+ border:0;
+ border-radius:12px;
+ background:#111;
+ color:white;
+ font-weight:600;
+ margin-top:8px;
+}
+button.secondary{
+ padding:10px 13px;
+ border:0;
+ border-radius:10px;
+ background:#eee;
+ margin:4px;
+}
+button.danger{
+ background:#e53935;
+ color:white;
+}
+.item{
+ padding:14px 0;
+ border-bottom:1px solid #eee;
+}
+.item:last-child{border-bottom:0}
+
+.product{
+ display:flex;
+ gap:12px;
+ align-items:center;
+ padding:12px 0;
+ border-bottom:1px solid #eee;
+}
+.product img{
+ width:65px;
+ height:65px;
+ object-fit:cover;
+ border-radius:12px;
+ background:#eee;
+}
+.product-info{flex:1}
+.product-info strong{display:block}
+.small{font-size:13px;color:#777}
+
+.badge{
+ display:inline-block;
+ padding:5px 8px;
+ border-radius:8px;
+ background:#eee;
+ font-size:12px;
+}
+.low{background:#ffe0e0;color:#b00000}
+
+.photo-preview{
+ width:100%;
+ max-height:220px;
+ object-fit:cover;
+ border-radius:15px;
+ margin-top:8px;
+ display:none;
+}
+
+.report{
+ padding:14px;
+ background:#fafafa;
+ border-radius:14px;
+ margin:8px 0;
+}
+
+.empty{
+ text-align:center;
+ color:#777;
+ padding:20px;
+}
+
+@media(max-width:500px){
+ .grid{grid-template-columns:1fr 1fr}
+ header h1{font-size:22px}
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>Mon Commerce</h1>
-<p>Gestion simple de mon commerce</p>
+<h1 id="appTitle">Mon Commerce</h1>
+<p id="appSubtitle">Gestion simple et intelligente de mon commerce</p>
 </header>
 
 <nav>
-<button onclick="show('accueil')">Accueil</button>
-<button onclick="show('vente')">Vente</button>
-<button onclick="show('depense')">Dépense</button>
-<button onclick="show('stock')">Stock</button>
-<button onclick="show('clients')">Clients</button>
+<button onclick="show('accueil',this)" class="active">🏠 Accueil</button>
+<button onclick="show('produits',this)">🛍️ Produits</button>
+<button onclick="show('ventes',this)">🧾 Ventes</button>
+<button onclick="show('depenses',this)">💸 Dépenses</button>
+<button onclick="show('clients',this)">👥 Clients</button>
+<button onclick="show('rapports',this)">📊 Rapports</button>
+<button onclick="show('publicite',this)">📢 Publicité</button>
+<button onclick="show('commandes',this)">🛒 Commandes</button>
+<button onclick="show('messages',this)">💬 Messages</button>
+<button onclick="show('parametres',this)">⚙️ Paramètres</button>
 </nav>
 
 <main>
 
+<!-- ACCUEIL -->
 <section id="accueil" class="active">
+
 <div class="card">
-<h2>Tableau de bord</h2>
+<h2 id="dashboardTitle">Tableau de bord</h2>
+<p class="small" id="businessSummary">Configure ton commerce dans Paramètres.</p>
+
 <div class="grid">
-<div>Ventes<div class="stat" id="totalVentes">0 FC</div></div>
-<div>Dépenses<div class="stat" id="totalDepenses">0 FC</div></div>
-<div>Coût marchandises<div class="stat" id="cout">0 FC</div></div>
-<div>Bénéfice<div class="stat" id="benefice">0 FC</div></div>
+<div class="stat">
+<span>💰 Ventes</span>
+<strong id="totalVentes">0</strong>
+</div>
+
+<div class="stat">
+<span>💸 Dépenses</span>
+<strong id="totalDepenses">0</strong>
+</div>
+
+<div class="stat">
+<span>📦 Stock</span>
+<strong id="valeurStock">0</strong>
+</div>
+
+<div class="stat">
+<span>📈 Bénéfice</span>
+<strong id="benefice">0</strong>
 </div>
 </div>
+</div>
+
+<div class="card">
+<h2>⚡ Actions rapides</h2>
+<button class="action" onclick="show('produits')">➕ Ajouter un produit</button>
+<button class="action" onclick="show('ventes')">🧾 Enregistrer une vente</button>
+<button class="action" onclick="show('publicite')">📢 Créer une publicité</button>
+</div>
+
+<div class="card">
+<h2>⚠️ Stock faible</h2>
+<div id="alertesStock"></div>
+</div>
+
 </section>
 
-<section id="vente">
+
+<!-- PRODUITS -->
+<section id="produits">
+
 <div class="card">
-<h2>Ajouter une vente</h2>
-<input id="produitVente" placeholder="Produit">
-<input id="qteVente" type="number" placeholder="Quantité">
-<input id="achatVente" type="number" placeholder="Prix d'achat unitaire (FC)">
-<input id="prixVente" type="number" placeholder="Prix de vente unitaire (FC)">
+<h2>🛍️ Mes produits</h2>
+
+<input id="nomProduit" placeholder="Nom du produit">
+<input id="categorieProduit" placeholder="Catégorie">
+<input id="achatProduit" type="number" placeholder="Prix d'achat">
+<input id="venteProduit" type="number" placeholder="Prix de vente">
+<input id="qteProduit" type="number" placeholder="Quantité en stock">
+<input id="stockMin" type="number" placeholder="Stock minimum (alerte)">
+
+<label>📷 Photo du produit</label>
+<input id="photoProduit" type="file" accept="image/*" onchange="previewPhoto(event)">
+<img id="photoPreview" class="photo-preview">
+
+<button class="action" onclick="ajouterProduit()">Ajouter le produit</button>
+</div>
+
+<div class="card">
+<h2>📦 Stock actuel</h2>
+<div id="listeProduits"></div>
+</div>
+
+</section>
+
+
+<!-- VENTES -->
+<section id="ventes">
+
+<div class="card">
+<h2>🧾 Nouvelle vente</h2>
+
+<select id="venteProduitSelect">
+<option value="">Choisir un produit</option>
+</select>
+
+<input id="venteQte" type="number" placeholder="Quantité">
+
+<input id="ventePrix" type="number" placeholder="Prix de vente unitaire">
+
+<input id="venteClient" placeholder="Nom du client (facultatif)">
+
 <button class="action" onclick="ajouterVente()">Enregistrer la vente</button>
 </div>
-<div class="card" id="listeVentes"></div>
+
+<div class="card">
+<h2>📚 Historique des ventes</h2>
+<div id="listeVentes"></div>
+</div>
+
 </section>
 
-<section id="depense">
+
+<!-- DEPENSES -->
+<section id="depenses">
+
 <div class="card">
-<h2>Ajouter une dépense</h2>
-<input id="catDepense" placeholder="Ex : Transport">
-<input id="montantDepense" type="number" placeholder="Montant (FC)">
-<input id="noteDepense" placeholder="Note">
+<h2>💸 Nouvelle dépense</h2>
+
+<input id="catDepense" placeholder="Catégorie : transport, électricité...">
+<input id="montantDepense" type="number" placeholder="Montant">
+<textarea id="noteDepense" placeholder="Description"></textarea>
+
 <button class="action" onclick="ajouterDepense()">Enregistrer</button>
 </div>
-<div class="card" id="listeDepenses"></div>
-</section>
 
-<section id="stock">
 <div class="card">
-<h2>Mon stock</h2>
-<input id="nomStock" placeholder="Nom du produit">
-<input id="qteStock" type="number" placeholder="Quantité">
-<input id="prixStock" type="number" placeholder="Prix d'achat (FC)">
-<button class="action" onclick="ajouterStock()">Ajouter au stock</button>
+<h2>Historique des dépenses</h2>
+<div id="listeDepenses"></div>
 </div>
-<div class="card" id="listeStock"></div>
+
 </section>
 
+
+<!-- CLIENTS -->
 <section id="clients">
+
 <div class="card">
-<h2>Clients qui doivent</h2>
+<h2>👥 Ajouter un client</h2>
+
 <input id="nomClient" placeholder="Nom du client">
-<input id="detteClient" type="number" placeholder="Montant dû (FC)">
-<button class="action" onclick="ajouterClient()">Ajouter</button>
+<input id="telephoneClient" placeholder="Téléphone">
+<input id="detteClient" type="number" placeholder="Montant dû">
+
+<button class="action" onclick="ajouterClient()">Ajouter le client</button>
 </div>
-<div class="card" id="listeClients"></div>
+
+<div class="card">
+<h2>💳 Clients / crédits</h2>
+<div id="listeClients"></div>
+</div>
+
+</section>
+
+
+<!-- RAPPORTS -->
+<section id="rapports">
+
+<div class="card">
+<h2>📊 Rapports</h2>
+
+<select id="rapportPeriode" onchange="afficherRapport()">
+<option value="jour">Aujourd'hui</option>
+<option value="semaine">Cette semaine</option>
+<option value="mois">Ce mois</option>
+<option value="annee">Cette année</option>
+</select>
+
+<div id="rapportResultat"></div>
+</div>
+
+<div class="card">
+<h2>📈 Résumé</h2>
+<div id="resumeRapport"></div>
+</div>
+
+</section>
+
+
+<!-- PUBLICITE -->
+<section id="publicite">
+
+<div class="card">
+<h2>📢 Créer une publicité</h2>
+
+<p class="small">
+Sélectionne les produits que tu veux présenter à tes clients.
+</p>
+
+<div id="produitsPublicite"></div>
+
+<textarea id="textePublicite"
+placeholder="Message publicitaire..."></textarea>
+
+<button class="action" onclick="genererPublicite()">✨ Générer la publicité</button>
+
+<div id="resultatPublicite"></div>
+</div>
+
+</section>
+
+
+<!-- COMMANDES -->
+<section id="commandes">
+
+<div class="card">
+<h2>🛒 Commandes clients</h2>
+<p class="small">
+Les commandes reçues depuis la future boutique publique apparaîtront ici.
+</p>
+
+<div id="listeCommandes"></div>
+</div>
+
+</section>
+
+
+<!-- MESSAGES -->
+<section id="messages">
+
+<div class="card">
+<h2>💬 Messages clients</h2>
+
+<div id="listeMessages"></div>
+
+<textarea id="nouveauMessage" placeholder="Écrire une réponse..."></textarea>
+<button class="action" onclick="envoyerMessage()">Envoyer</button>
+</div>
+
+</section>
+
+
+<!-- PARAMETRES -->
+<section id="parametres">
+
+<div class="card">
+<h2>⚙️ Paramètres du commerce</h2>
+
+<input id="nomCommerce" placeholder="Nom du commerce">
+<input id="proprietaire" placeholder="Nom du propriétaire">
+<input id="adresse" placeholder="Adresse du commerce">
+<input id="telephoneCommerce" placeholder="Téléphone / WhatsApp">
+
+<label>🌍 Langue</label>
+<select id="langue" onchange="changerLangue()">
+<option value="fr">🇫🇷 Français</option>
+<option value="en">🇬🇧 English</option>
+</select>
+
+<label>💱 Devise principale</label>
+<select id="devise">
+<option value="CDF">🇨🇩 CDF / FC</option>
+<option value="USD">🇺🇸 USD / $</option>
+<option value="EUR">🇪🇺 EUR / €</option>
+<option value="GBP">🇬🇧 GBP / £</option>
+<option value="KES">🇰🇪 KES</option>
+<option value="UGX">🇺🇬 UGX</option>
+<option value="XAF">🇨🇲 XAF</option>
+<option value="XOF">🇨🇮 XOF</option>
+</select>
+
+<label>💱 Taux de change de référence</label>
+<input id="tauxChange" type="number" placeholder="Ex : 2350">
+
+<p class="small">
+Exemple : 1 USD = 2350 CDF.
+Le taux est défini manuellement par le commerçant.
+</p>
+
+<button class="action" onclick="sauvegarderParametres()">💾 Enregistrer les paramètres</button>
+</div>
+
+<div class="card">
+<h2>🏪 Informations</h2>
+<div id="infosCommerce"></div>
+</div>
+
+<div class="card">
+<h2>🔐 Sécurité</h2>
+<p class="small">
+La version actuelle est un prototype. Les comptes utilisateurs,
+la connexion sécurisée et la sauvegarde en ligne seront ajoutés
+dans la prochaine étape avec une vraie base de données.
+</p>
+</div>
+
 </section>
 
 </main>
 
+
 <script>
-let data=JSON.parse(localStorage.getItem("monCommerce"))||{
-ventes:[],depenses:[],stock:[],clients:[]
+
+let data = JSON.parse(localStorage.getItem("monCommerce2")) || {
+
+ produits:[],
+ ventes:[],
+ depenses:[],
+ clients:[],
+ commandes:[],
+ messages:[],
+
+ parametres:{
+   nom:"Mon Commerce",
+   proprietaire:"",
+   adresse:"",
+   telephone:"",
+   langue:"fr",
+   devise:"CDF",
+   taux:2350
+ }
+
 };
 
-function save(){
-localStorage.setItem("monCommerce",JSON.stringify(data));
-afficher();
+
+function sauvegarder(){
+ localStorage.setItem("monCommerce2",JSON.stringify(data));
+ afficherTout();
 }
 
-function show(id){
-document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-afficher();
+
+function devise(){
+ return data.parametres.devise || "CDF";
 }
+
+
+function argent(nombre){
+ try{
+  return new Intl.NumberFormat(
+   data.parametres.langue==="en" ? "en-US" : "fr-FR",
+   {
+    style:"currency",
+    currency:devise(),
+    maximumFractionDigits:0
+   }
+  ).format(Number(nombre)||0);
+ }catch(e){
+  return Number(nombre||0).toLocaleString()+" "+devise();
+ }
+}
+
+
+function dateMaintenant(){
+ return new Date().toLocaleString(
+  data.parametres.langue==="en" ? "en-US" : "fr-FR"
+ );
+}
+
+
+function show(id,button){
+
+ document.querySelectorAll("section").forEach(s=>{
+  s.classList.remove("active");
+ });
+
+ document.getElementById(id).classList.add("active");
+
+ if(button){
+  document.querySelectorAll("nav button").forEach(b=>{
+   b.classList.remove("active");
+  });
+  button.classList.add("active");
+ }
+
+ afficherTout();
+}
+
+
+function previewPhoto(event){
+
+ const file=event.target.files[0];
+
+ if(!file)return;
+
+ const reader=new FileReader();
+
+ reader.onload=function(e){
+  const img=document.getElementById("photoPreview");
+  img.src=e.target.result;
+  img.style.display="block";
+ };
+
+ reader.readAsDataURL(file);
+}
+
+
+function ajouterProduit(){
+
+ const nom=document.getElementById("nomProduit").value.trim();
+ const categorie=document.getElementById("categorieProduit").value.trim();
+ const achat=Number(document.getElementById("achatProduit").value);
+ const vente=Number(document.getElementById("venteProduit").value);
+ const qte=Number(document.getElementById("qteProduit").value);
+ const minimum=Number(document.getElementById("stockMin").value)||0;
+
+ const fichier=document.getElementById("photoProduit").files[0];
+
+ if(!nom || !vente || !qte){
+  alert("Remplis au minimum le nom, le prix de vente et la quantité.");
+  return;
+ }
+
+ if(fichier){
+
+  const reader=new FileReader();
+
+  reader.onload=function(e){
+   enregistrerProduit(nom,categorie,achat,vente,qte,minimum,e.target.result);
+  };
+
+  reader.readAsDataURL(fichier);
+
+ }else{
+  enregistrerProduit(nom,categorie,achat,vente,qte,minimum,"");
+ }
+}
+
+
+function enregistrerProduit(nom,categorie,achat,vente,qte,minimum,photo){
+
+ data.produits.push({
+  id:Date.now(),
+  nom,
+  categorie,
+  achat,
+  vente,
+  qte,
+  minimum,
+  photo
+ });
+
+ sauvegarder();
+
+ document.getElementById("nomProduit").value="";
+ document.getElementById("categorieProduit").value="";
+ document.getElementById("achatProduit").value="";
+ document.getElementById("venteProduit").value="";
+ document.getElementById("qteProduit").value="";
+ document.getElementById("stockMin").value="";
+ document.getElementById("photoProduit").value="";
+ document.getElementById("photoPreview").style.display="none";
+
+ alert("Produit ajouté ✅");
+}
+
+
+function supprimerProduit(id){
+
+ if(!confirm("Supprimer ce produit ?"))return;
+
+ data.produits=data.produits.filter(p=>p.id!==id);
+
+ sauvegarder();
+}
+
+
+function remplirSelectProduits(){
+
+ const select=document.getElementById("venteProduitSelect");
+
+ select.innerHTML='<option value="">Choisir un produit</option>';
+
+ data.produits.forEach(p=>{
+
+  const option=document.createElement("option");
+
+  option.value=p.id;
+  option.textContent=p.nom+" — "+argent(p.vente);
+
+  select.appendChild(option);
+
+ });
+}
+
 
 function ajouterVente(){
-let produit=document.getElementById("produitVente").value;
-let q=Number(document.getElementById("qteVente").value);
-let achat=Number(document.getElementById("achatVente").value);
-let prix=Number(document.getElementById("prixVente").value);
-if(!produit||!q||!prix)return alert("Remplis les informations.");
-data.ventes.push({produit,q,achat,prix});
-save();
-document.getElementById("produitVente").value="";
-document.getElementById("qteVente").value="";
-document.getElementById("achatVente").value="";
-document.getElementById("prixVente").value="";
+
+ const id=Number(document.getElementById("venteProduitSelect").value);
+ const qte=Number(document.getElementById("venteQte").value);
+ const client=document.getElementById("venteClient").value.trim();
+
+ const produit=data.produits.find(p=>p.id===id);
+
+ if(!produit || !qte){
+  alert("Choisis un produit et une quantité.");
+  return;
+ }
+
+ if(qte>produit.qte){
+  alert("Stock insuffisant.");
+  return;
+ }
+
+ const prix=Number(document.getElementById("ventePrix").value)||produit.vente;
+
+ produit.qte-=qte;
+
+ data.ventes.push({
+  id:Date.now(),
+  produitId:id,
+  produit:produit.nom,
+  qte,
+  achat:produit.achat,
+  prix,
+  client,
+  date:new Date().toISOString()
+ });
+
+ sauvegarder();
+
+ document.getElementById("venteQte").value="";
+ document.getElementById("venteClient").value="";
+
+ alert("Vente enregistrée ✅");
 }
+
 
 function ajouterDepense(){
-let cat=document.getElementById("catDepense").value;
-let montant=Number(document.getElementById("montantDepense").value);
-let note=document.getElementById("noteDepense").value;
-if(!cat||!montant)return alert("Remplis les informations.");
-data.depenses.push({cat,montant,note});
-save();
+
+ const cat=document.getElementById("catDepense").value.trim();
+ const montant=Number(document.getElementById("montantDepense").value);
+ const note=document.getElementById("noteDepense").value.trim();
+
+ if(!cat || !montant){
+  alert("Remplis les informations.");
+  return;
+ }
+
+ data.depenses.push({
+  id:Date.now(),
+  cat,
+  montant,
+  note,
+  date:new Date().toISOString()
+ });
+
+ sauvegarder();
+
+ document.getElementById("catDepense").value="";
+ document.getElementById("montantDepense").value="";
+ document.getElementById("noteDepense").value="";
+
+ alert("Dépense enregistrée ✅");
 }
 
-function ajouterStock(){
-let nom=document.getElementById("nomStock").value;
-let q=Number(document.getElementById("qteStock").value);
-let prix=Number(document.getElementById("prixStock").value);
-if(!nom||!q)return alert("Remplis les informations.");
-data.stock.push({nom,q,prix});
-save();
-}
 
 function ajouterClient(){
-let nom=document.getElementById("nomClient").value;
-let dette=Number(document.getElementById("detteClient").value);
-if(!nom||!dette)return alert("Remplis les informations.");
-data.clients.push({nom,dette,paye:false});
-save();
+
+ const nom=document.getElementById("nomClient").value.trim();
+ const telephone=document.getElementById("telephoneClient").value.trim();
+ const dette=Number(document.getElementById("detteClient").value);
+
+ if(!nom){
+  alert("Ajoute le nom du client.");
+  return;
+ }
+
+ data.clients.push({
+  id:Date.now(),
+  nom,
+  telephone,
+  dette
+ });
+
+ sauvegarder();
+
+ document.getElementById("nomClient").value="";
+ document.getElementById("telephoneClient").value="";
+ document.getElementById("detteClient").value="";
 }
 
-function afficher(){
-let ventes=0,cout=0;
-document.getElementById("listeVentes").innerHTML="<h3>Ventes</h3>";
-data.ventes.forEach(v=>{
-ventes+=v.q*v.prix;
-cout+=v.q*v.achat;
-document.getElementById("listeVentes").innerHTML+=
-`<div class="item">${v.produit} — ${v.q} × ${v.prix.toLocaleString()} FC</div>`;
-});
 
-let dep=0;
-document.getElementById("listeDepenses").innerHTML="<h3>Dépenses</h3>";
-data.depenses.forEach(d=>{
-dep+=d.montant;
-document.getElementById("listeDepenses").innerHTML+=
-`<div class="item">${d.cat} — ${d.montant.toLocaleString()} FC</div>`;
-});
+function payerClient(id){
 
-document.getElementById("listeStock").innerHTML="<h3>Stock</h3>";
-data.stock.forEach(s=>{
-document.getElementById("listeStock").innerHTML+=
-`<div class="item">${s.nom} — ${s.q} unités <span class="small">(${s.prix.toLocaleString()} FC)</span></div>`;
-});
+ const client=data.clients.find(c=>c.id===id);
 
-document.getElementById("listeClients").innerHTML="<h3>Clients</h3>";
-data.clients.forEach((c,i)=>{
-document.getElementById("listeClients").innerHTML+=
-`<div class="item">${c.nom} — ${c.dette.toLocaleString()} FC
-<button onclick="payer(${i})">Payé</button></div>`;
-});
+ if(!client)return;
 
-document.getElementById("totalVentes").textContent=ventes.toLocaleString()+" FC";
-document.getElementById("totalDepenses").textContent=dep.toLocaleString()+" FC";
-document.getElementById("cout").textContent=cout.toLocaleString()+" FC";
-document.getElementById("benefice").textContent=(ventes-cout-dep).toLocaleString()+" FC";
+ const paiement=Number(prompt(
+  "Montant payé par "+client.nom,
+  client.dette
+ ));
+
+ if(!paiement || paiement<=0)return;
+
+ client.dette-=paiement;
+
+ if(client.dette<=0){
+  data.clients=data.clients.filter(c=>c.id!==id);
+ }
+
+ sauvegarder();
 }
 
-function payer(i){
-data.clients[i].paye=true;
-data.clients.splice(i,1);
-save();
+
+function estAujourdHui(date){
+
+ const d=new Date(date);
+ const n=new Date();
+
+ return d.toDateString()===n.toDateString();
 }
 
-afficher();
+
+function estCetteSemaine(date){
+
+ const d=new Date(date);
+ const n=new Date();
+
+ const debut=new Date(n);
+ debut.setDate(n.getDate()-n.getDay());
+
+ debut.setHours(0,0,0,0);
+
+ return d>=debut;
+}
+
+
+function estCeMois(date){
+
+ const d=new Date(date);
+ const n=new Date();
+
+ return d.getMonth()===n.getMonth() &&
+        d.getFullYear()===n.getFullYear();
+}
+
+
+function estCetteAnnee(date){
+
+ const d=new Date(date);
+ const n=new Date();
+
+ return d.getFullYear()===n.getFullYear();
+}
+
+
+function rapportFiltre(date,periode){
+
+ if(periode==="jour")return estAujourdHui(date);
+ if(periode==="semaine")return estCetteSemaine(date);
+ if(periode==="mois")return estCeMois(date);
+ if(periode==="annee")return estCetteAnnee(date);
+
+ return true;
+}
+
+
+function afficherRapport(){
+
+ const periode=document.getElementById("rapportPeriode").value;
+
+ const ventes=data.ventes.filter(v=>rapportFiltre(v.date,periode));
+ const depenses=data.depenses.filter(d=>rapportFiltre(d.date,periode));
+
+ const totalVentes=ventes.reduce((s,v)=>s+v.qte*v.prix,0);
+ const cout=ventes.reduce((s,v)=>s+v.qte*v.achat,0);
+ const totalDepenses=depenses.reduce((s,d)=>s+d.montant,0);
+ const benefice=totalVentes-cout-totalDepenses;
+
+ document.getElementById("rapportResultat").innerHTML=`
+
+ <div class="report">
+ 📈 <strong>Ventes :</strong> ${argent(totalVentes)}
+ </div>
+
+ <div class="report">
+ 📦 <strong>Coût marchandises :</strong> ${argent(cout)}
+ </div>
+
+ <div class="report">
+ 💸 <strong>Dépenses :</strong> ${argent(totalDepenses)}
+ </div>
+
+ <div class="report">
+ 💰 <strong>Bénéfice :</strong> ${argent(benefice)}
+ </div>
+
+ <div class="report">
+ 🧾 <strong>Nombre de ventes :</strong> ${ventes.length}
+ </div>
+ `;
+
+ document.getElementById("resumeRapport").innerHTML=
+ "Rapport généré le "+dateMaintenant();
+}
+
+
+function genererPublicite(){
+
+ const cases=document.querySelectorAll(".pubProduit:checked");
+
+ if(cases.length===0){
+  alert("Sélectionne au moins un produit.");
+  return;
+ }
+
+ let texte="✨ NOUVEAUTÉS CHEZ "+data.parametres.nom.toUpperCase()+" ✨\n\n";
+
+ cases.forEach(c=>{
+
+  const p=data.produits.find(x=>x.id===Number(c.value));
+
+  if(p){
+   texte+="🛍️ "+p.nom+" — "+argent(p.vente)+"\n";
+  }
+
+ });
+
+ if(data.parametres.adresse){
+  texte+="\n📍 "+data.parametres.adresse;
+ }
+
+ if(data.parametres.telephone){
+  texte+="\n📲 "+data.parametres.telephone;
+ }
+
+ texte+="\n\n💬 Contactez-nous pour commander.";
+
+ document.getElementById("textePublicite").value=texte;
+
+ document.getElementById("resultatPublicite").innerHTML=`
+
+ <div class="card">
+ <h3>📢 Publicité prête</h3>
+ <p class="small">
+ Tu peux copier ce texte et le partager sur WhatsApp,
+ Facebook, Messenger ou une autre application.
+ </p>
+
+ <button class="action" onclick="partagerPublicite()">
+ 📲 Partager
+ </button>
+ </div>
+ `;
+}
+
+
+async function partagerPublicite(){
+
+ const texte=document.getElementById("textePublicite").value;
+
+ if(navigator.share){
+
+  try{
+   await navigator.share({
+    title:data.parametres.nom,
+    text:texte
+   });
+  }catch(e){}
+
+ }else{
+
+  await navigator.clipboard.writeText(texte);
+
+  alert("Publicité copiée. Tu peux maintenant la coller dans WhatsApp ou une autre application.");
+
+ }
+}
+
+
+function envoyerMessage(){
+
+ const message=document.getElementById("nouveauMessage").value.trim();
+
+ if(!message)return;
+
+ data.messages.push({
+  id:Date.now(),
+  texte:message,
+  date:new Date().toISOString(),
+  origine:"commerce"
+ });
+
+ sauvegarder();
+
+ document.getElementById("nouveauMessage").value="";
+}
+
+
+function sauvegarderParametres(){
+
+ data.parametres.nom=document.getElementById("nomCommerce").value||"Mon Commerce";
+ data.parametres.proprietaire=document.getElementById("proprietaire").value;
+ data.parametres.adresse=document.getElementById("adresse").value;
+ data.parametres.telephone=document.getElementById("telephoneCommerce").value;
+ data.parametres.langue=document.getElementById("langue").value;
+ data.parametres.devise=document.getElementById("devise").value;
+ data.parametres.taux=Number(document.getElementById("tauxChange").value)||2350;
+
+ sauvegarder();
+
+ alert("Paramètres enregistrés ✅");
+}
+
+
+function changerLangue(){
+
+ const langue=document.getElementById("langue").value;
+
+ if(langue==="en"){
+  document.getElementById("dashboardTitle").textContent="Dashboard";
+  document.getElementById("appSubtitle").textContent="Simple and smart business management";
+ }else{
+  document.getElementById("dashboardTitle").textContent="Tableau de bord";
+  document.getElementById("appSubtitle").textContent="Gestion simple et intelligente de mon commerce";
+ }
+
+}
+
+
+function afficherTout(){
+
+ document.getElementById("appTitle").textContent=
+ data.parametres.nom||"Mon Commerce";
+
+ document.getElementById("businessSummary").textContent=
+ (data.parametres.proprietaire ?
+ "Propriétaire : "+data.parametres.proprietaire :
+ "")+
+ (data.parametres.adresse ?
+ " • "+data.parametres.adresse :
+ "");
+
+ let ventes=0;
+ let cout=0;
+
+ data.ventes.forEach(v=>{
+  ventes+=v.qte*v.prix;
+  cout+=v.qte*v.achat;
+ });
+
+ let depenses=data.depenses.reduce(
+  (s,d)=>s+d.montant,0
+ );
+
+ let valeurStock=data.produits.reduce(
+  (s,p)=>s+p.qte*p.achat,0
+ );
+
+ document.getElementById("totalVentes").textContent=argent(ventes);
+ document.getElementById("totalDepenses").textContent=argent(depenses);
+ document.getElementById("valeurStock").textContent=argent(valeurStock);
+ document.getElementById("benefice").textContent=
+ argent(ventes-cout-depenses);
+
+ remplirSelectProduits();
+
+ afficherProduits();
+ afficherVentes();
+ afficherDepenses();
+ afficherClients();
+ afficherAlertes();
+ afficherRapport();
+ afficherPubliciteProduits();
+ afficherCommandes();
+ afficherMessages();
+ afficherParametres();
+
+}
+
+
+function afficherProduits(){
+
+ const zone=document.getElementById("listeProduits");
+
+ if(data.produits.length===0){
+  zone.innerHTML='<div class="empty">Aucun produit pour le moment.</div>';
+  return;
+ }
+
+ zone.innerHTML="";
+
+ data.produits.forEach(p=>{
+
+  const alerte=p.qte<=p.minimum && p.minimum>0;
+
+  zone.innerHTML+=`
+
+  <div class="product">
+
+  ${
+   p.photo
+   ? `<img src="${p.photo}">`
+   : `<div style="width:65px;height:65px;border-radius:12px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:25px">📦</div>`
+  }
+
+  <div class="product-info">
+
+   <strong>${p.nom}</strong>
+
+   <span class="small">
+   ${p.categorie||"Sans catégorie"} ·
+   ${p.qte} unités
+   </span>
+
+   <br>
+
+   <span class="small">
+   Vente : ${argent(p.vente)}
+   </span>
+
+   ${alerte
+    ? `<br><span class="badge low">⚠️ Stock faible</span>`
+    : ""
+   }
+
+  </div>
+
+  <button class="secondary danger"
+  onclick="supprimerProduit(${p.id})">
+  Supprimer
+  </button>
+
+  </div>
+
+  `;
+ });
+}
+
+
+function afficherVentes(){
+
+ const zone=document.getElementById("listeVentes");
+
+ if(data.ventes.length===0){
+  zone.innerHTML='<div class="empty">Aucune vente enregistrée.</div>';
+  return;
+ }
+
+ zone.innerHTML="";
+
+ [...data.ventes].reverse().forEach(v=>{
+
+  zone.innerHTML+=`
+
+  <div class="item">
+
+  <strong>${v.produit}</strong><br>
+
+  <span class="small">
+  ${v.qte} × ${argent(v.prix)}
+  </span>
+
+  <br>
+
+  <span class="small">
+  ${new Date(v.date).toLocaleString()}
+  ${v.client ? " · Client : "+v.client : ""}
+  </span>
+
+  </div>
+
+  `;
+ });
+}
+
+
+function afficherDepenses(){
+
+ const zone=document.getElementById("listeDepenses");
+
+ if(data.depenses.length===0){
+  zone.innerHTML='<div class="empty">Aucune dépense.</div>';
+  return;
+ }
+
+ zone.innerHTML="";
+
+ [...data.depenses].reverse().forEach(d=>{
+
+  zone.innerHTML+=`
+
+  <div class="item">
+  <strong>${d.cat}</strong> — ${argent(d.montant)}
+  <br>
+  <span class="small">
+  ${d.note||""} · ${new Date(d.date).toLocaleString()}
+  </span>
+  </div>
+
+  `;
+ });
+}
+
+
+function afficherClients(){
+
+ const zone=document.getElementById("listeClients");
+
+ if(data.clients.length===0){
+  zone.innerHTML='<div class="empty">Aucun client à crédit.</div>';
+  return;
+ }
+
+ zone.innerHTML="";
+
+ data.clients.forEach(c=>{
+
+  zone.innerHTML+=`
+
+  <div class="item">
+
+  <strong>${c.nom}</strong>
+
+  <br>
+
+  <span class="small">
+  ${c.telephone||"Aucun téléphone"}
+  </span>
+
+  <br>
+
+  💳 Dette : <strong>${argent(c.dette)}</strong>
+
+  <br>
+
+  <button class="secondary"
+  onclick="payerClient(${c.id})">
+  💰 Enregistrer un paiement
+  </button>
+
+  </div>
+
+  `;
+ });
+}
+
+
+function afficherAlertes(){
+
+ const zone=document.getElementById("alertesStock");
+
+ const faibles=data.produits.filter(
+  p=>p.minimum>0 && p.qte<=p.minimum
+ );
+
+ if(faibles.length===0){
+  zone.innerHTML='<div class="empty">Tout va bien 👍</div>';
+  return;
+ }
+
+ zone.innerHTML="";
+
+ faibles.forEach(p=>{
+  zone.innerHTML+=`
+  <div class="item">
+  ⚠️ <strong>${p.nom}</strong> :
+  ${p.qte} unité(s) restante(s)
+  </div>
+  `;
+ });
+}
+
+
+function afficherPubliciteProduits(){
+
+ const zone=document.getElementById("produitsPublicite");
+
+ zone.innerHTML="";
+
+ data.produits.forEach(p=>{
+
+  zone.innerHTML+=`
+
+  <label style="display:block;padding:10px;background:#fafafa;border-radius:10px;margin:5px 0">
+
+  <input
+   class="pubProduit"
+   type="checkbox"
+   value="${p.id}"
+   style="width:auto"
+  >
+
+  ${p.nom} — ${argent(p.vente)}
+
+  </label>
+
+  `;
+ });
+}
+
+
+function afficherCommandes(){
+
+ const zone=document.getElementById("listeCommandes");
+
+ if(data.commandes.length===0){
+  zone.innerHTML=`
+  <div class="empty">
+  Aucune commande pour le moment.<br>
+  🛒 La boutique publique sera connectée ici dans la prochaine étape.
+  </div>
+  `;
+  return;
+ }
+
+ zone.innerHTML="";
+
+ data.commandes.forEach(c=>{
+  zone.innerHTML+=`
+  <div class="item">
+  <strong>${c.client}</strong><br>
+  ${c.produit}<br>
+  <span class="small">${c.statut}</span>
+  </div>
+  `;
+ });
+}
+
+
+function afficherMessages(){
+
+ const zone=document.getElementById("listeMessages");
+
+ if(data.messages.length===0){
+  zone.innerHTML='<div class="empty">Aucun message.</div>';
+  return;
+ }
+
+ zone.innerHTML="";
+
+ data.messages.forEach(m=>{
+  zone.innerHTML+=`
+  <div class="item">
+  💬 ${m.texte}
+  <br>
+  <span class="small">${new Date(m.date).toLocaleString()}</span>
+  </div>
+  `;
+ });
+}
+
+
+function afficherParametres(){
+
+ document.getElementById("nomCommerce").value=data.parametres.nom||"";
+ document.getElementById("proprietaire").value=data.parametres.proprietaire||"";
+ document.getElementById("adresse").value=data.parametres.adresse||"";
+ document.getElementById("telephoneCommerce").value=data.parametres.telephone||"";
+ document.getElementById("langue").value=data.parametres.langue||"fr";
+ document.getElementById("devise").value=data.parametres.devise||"CDF";
+ document.getElementById("tauxChange").value=data.parametres.taux||2350;
+
+ document.getElementById("infosCommerce").innerHTML=`
+
+ <p><strong>🏪 Commerce :</strong> ${data.parametres.nom}</p>
+ <p><strong>👤 Propriétaire :</strong> ${data.parametres.proprietaire||"—"}</p>
+ <p><strong>📍 Adresse :</strong> ${data.parametres.adresse||"—"}</p>
+ <p><strong>📲 Contact :</strong> ${data.parametres.telephone||"—"}</p>
+ <p><strong>💱 Devise :</strong> ${data.parametres.devise}</p>
+ <p><strong>🔄 Taux :</strong> ${data.parametres.taux}</p>
+
+ `;
+}
+
+
+afficherTout();
+
 </script>
 
 </body>
