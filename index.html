@@ -1,1 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon Commerce</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f6f8;color:#222}
+header{background:#111;color:white;padding:20px;text-align:center}
+nav{display:flex;gap:6px;overflow:auto;background:white;padding:10px}
+nav button{border:0;background:#eee;padding:10px 14px;border-radius:10px;white-space:nowrap}
+main{padding:15px;max-width:700px;margin:auto}
+section{display:none}
+section.active{display:block}
+.card{background:white;padding:18px;margin:12px 0;border-radius:16px;box-shadow:0 2px 8px #ddd}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{font-size:24px;font-weight:bold;margin-top:6px}
+input,select{width:100%;padding:12px;margin:7px 0;border:1px solid #ddd;border-radius:10px}
+button.action{width:100%;padding:13px;border:0;border-radius:10px;background:#111;color:white;margin-top:8px}
+.item{padding:12px;border-bottom:1px solid #eee}
+.small{color:#666;font-size:13px}
+</style>
+</head>
 
+<body>
+
+<header>
+<h1>Mon Commerce</h1>
+<p>Gestion simple de mon commerce</p>
+</header>
+
+<nav>
+<button onclick="show('accueil')">Accueil</button>
+<button onclick="show('vente')">Vente</button>
+<button onclick="show('depense')">Dépense</button>
+<button onclick="show('stock')">Stock</button>
+<button onclick="show('clients')">Clients</button>
+</nav>
+
+<main>
+
+<section id="accueil" class="active">
+<div class="card">
+<h2>Tableau de bord</h2>
+<div class="grid">
+<div>Ventes<div class="stat" id="totalVentes">0 FC</div></div>
+<div>Dépenses<div class="stat" id="totalDepenses">0 FC</div></div>
+<div>Coût marchandises<div class="stat" id="cout">0 FC</div></div>
+<div>Bénéfice<div class="stat" id="benefice">0 FC</div></div>
+</div>
+</div>
+</section>
+
+<section id="vente">
+<div class="card">
+<h2>Ajouter une vente</h2>
+<input id="produitVente" placeholder="Produit">
+<input id="qteVente" type="number" placeholder="Quantité">
+<input id="achatVente" type="number" placeholder="Prix d'achat unitaire (FC)">
+<input id="prixVente" type="number" placeholder="Prix de vente unitaire (FC)">
+<button class="action" onclick="ajouterVente()">Enregistrer la vente</button>
+</div>
+<div class="card" id="listeVentes"></div>
+</section>
+
+<section id="depense">
+<div class="card">
+<h2>Ajouter une dépense</h2>
+<input id="catDepense" placeholder="Ex : Transport">
+<input id="montantDepense" type="number" placeholder="Montant (FC)">
+<input id="noteDepense" placeholder="Note">
+<button class="action" onclick="ajouterDepense()">Enregistrer</button>
+</div>
+<div class="card" id="listeDepenses"></div>
+</section>
+
+<section id="stock">
+<div class="card">
+<h2>Mon stock</h2>
+<input id="nomStock" placeholder="Nom du produit">
+<input id="qteStock" type="number" placeholder="Quantité">
+<input id="prixStock" type="number" placeholder="Prix d'achat (FC)">
+<button class="action" onclick="ajouterStock()">Ajouter au stock</button>
+</div>
+<div class="card" id="listeStock"></div>
+</section>
+
+<section id="clients">
+<div class="card">
+<h2>Clients qui doivent</h2>
+<input id="nomClient" placeholder="Nom du client">
+<input id="detteClient" type="number" placeholder="Montant dû (FC)">
+<button class="action" onclick="ajouterClient()">Ajouter</button>
+</div>
+<div class="card" id="listeClients"></div>
+</section>
+
+</main>
+
+<script>
+let data=JSON.parse(localStorage.getItem("monCommerce"))||{
+ventes:[],depenses:[],stock:[],clients:[]
+};
+
+function save(){
+localStorage.setItem("monCommerce",JSON.stringify(data));
+afficher();
+}
+
+function show(id){
+document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+afficher();
+}
+
+function ajouterVente(){
+let produit=document.getElementById("produitVente").value;
+let q=Number(document.getElementById("qteVente").value);
+let achat=Number(document.getElementById("achatVente").value);
+let prix=Number(document.getElementById("prixVente").value);
+if(!produit||!q||!prix)return alert("Remplis les informations.");
+data.ventes.push({produit,q,achat,prix});
+save();
+document.getElementById("produitVente").value="";
+document.getElementById("qteVente").value="";
+document.getElementById("achatVente").value="";
+document.getElementById("prixVente").value="";
+}
+
+function ajouterDepense(){
+let cat=document.getElementById("catDepense").value;
+let montant=Number(document.getElementById("montantDepense").value);
+let note=document.getElementById("noteDepense").value;
+if(!cat||!montant)return alert("Remplis les informations.");
+data.depenses.push({cat,montant,note});
+save();
+}
+
+function ajouterStock(){
+let nom=document.getElementById("nomStock").value;
+let q=Number(document.getElementById("qteStock").value);
+let prix=Number(document.getElementById("prixStock").value);
+if(!nom||!q)return alert("Remplis les informations.");
+data.stock.push({nom,q,prix});
+save();
+}
+
+function ajouterClient(){
+let nom=document.getElementById("nomClient").value;
+let dette=Number(document.getElementById("detteClient").value);
+if(!nom||!dette)return alert("Remplis les informations.");
+data.clients.push({nom,dette,paye:false});
+save();
+}
+
+function afficher(){
+let ventes=0,cout=0;
+document.getElementById("listeVentes").innerHTML="<h3>Ventes</h3>";
+data.ventes.forEach(v=>{
+ventes+=v.q*v.prix;
+cout+=v.q*v.achat;
+document.getElementById("listeVentes").innerHTML+=
+`<div class="item">${v.produit} — ${v.q} × ${v.prix.toLocaleString()} FC</div>`;
+});
+
+let dep=0;
+document.getElementById("listeDepenses").innerHTML="<h3>Dépenses</h3>";
+data.depenses.forEach(d=>{
+dep+=d.montant;
+document.getElementById("listeDepenses").innerHTML+=
+`<div class="item">${d.cat} — ${d.montant.toLocaleString()} FC</div>`;
+});
+
+document.getElementById("listeStock").innerHTML="<h3>Stock</h3>";
+data.stock.forEach(s=>{
+document.getElementById("listeStock").innerHTML+=
+`<div class="item">${s.nom} — ${s.q} unités <span class="small">(${s.prix.toLocaleString()} FC)</span></div>`;
+});
+
+document.getElementById("listeClients").innerHTML="<h3>Clients</h3>";
+data.clients.forEach((c,i)=>{
+document.getElementById("listeClients").innerHTML+=
+`<div class="item">${c.nom} — ${c.dette.toLocaleString()} FC
+<button onclick="payer(${i})">Payé</button></div>`;
+});
+
+document.getElementById("totalVentes").textContent=ventes.toLocaleString()+" FC";
+document.getElementById("totalDepenses").textContent=dep.toLocaleString()+" FC";
+document.getElementById("cout").textContent=cout.toLocaleString()+" FC";
+document.getElementById("benefice").textContent=(ventes-cout-dep).toLocaleString()+" FC";
+}
+
+function payer(i){
+data.clients[i].paye=true;
+data.clients.splice(i,1);
+save();
+}
+
+afficher();
+</script>
+
+</body>
+</html>
