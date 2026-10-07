@@ -3,42 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0d2a5c">
-<meta name="description" content="Mon Commerce — Gestion moderne de votre commerce">
+<meta name="theme-color" content="#0F4C81">
+
 <title>Mon Commerce — 2.3 Original</title>
 
 <style>
 :root{
-  --navy:#0d2a5c;
-  --blue:#1769d2;
-  --blue2:#2879df;
-  --bg:#f5f7fb;
+  --blue:#0F4C81;
+  --blue-dark:#09365c;
+  --blue-light:#eaf2f8;
+  --bg:#F4F6F9;
   --white:#fff;
-  --text:#182235;
-  --muted:#6d7788;
-  --green:#35b878;
-  --green-bg:#e8f8ef;
-  --orange:#f0a63a;
-  --orange-bg:#fff3df;
-  --purple:#8066d8;
-  --purple-bg:#eeeafd;
-  --light-blue:#dceeff;
-  --red:#df4c55;
-  --border:#e4e8ef;
-  --shadow:0 4px 18px rgba(13,42,92,.08);
+  --text:#1d2733;
+  --muted:#718096;
+  --green:#36a269;
+  --green-bg:#e8f7ef;
+  --orange:#f29d38;
+  --orange-bg:#fff2df;
+  --purple:#7654b8;
+  --purple-bg:#eee8fa;
+  --red:#d9534f;
+  --red-bg:#fdeaea;
+  --border:#e3e8ee;
+  --shadow:0 4px 18px rgba(15,76,129,.08);
+  --radius:16px;
 }
 
 *{
   box-sizing:border-box;
-  margin:0;
-  padding:0;
 }
 
 body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  margin:0;
+  font-family:Inter,Roboto,Arial,sans-serif;
   background:var(--bg);
   color:var(--text);
-  padding-bottom:82px;
 }
 
 button,
@@ -50,382 +49,416 @@ textarea{
 
 button{
   cursor:pointer;
-  border:0;
 }
 
 .app{
-  max-width:540px;
-  margin:auto;
   min-height:100vh;
-  background:var(--bg);
 }
 
-.header{
-  background:var(--navy);
-  color:white;
-  padding:20px 18px 22px;
-  border-radius:0 0 24px 24px;
-}
+/* =========================
+   ONBOARDING
+========================= */
 
-.header-top{
+.onboarding{
+  min-height:100vh;
   display:flex;
+  justify-content:center;
   align-items:center;
-  justify-content:space-between;
-  gap:12px;
+  padding:24px;
+  background:linear-gradient(145deg,#0F4C81,#17649f);
 }
 
-.brand{
-  font-size:23px;
-  font-weight:800;
-}
-
-.subtitle{
-  font-size:13px;
-  opacity:.78;
-  margin-top:3px;
-}
-
-.icon-btn{
-  width:42px;
-  height:42px;
-  border-radius:13px;
-  background:rgba(255,255,255,.12);
-  color:white;
-  font-size:21px;
-}
-
-.store-card{
+.setup-card{
+  width:100%;
+  max-width:620px;
   background:white;
-  color:var(--text);
-  margin-top:18px;
-  padding:15px;
+  border-radius:24px;
+  padding:30px;
+  box-shadow:0 20px 60px rgba(0,0,0,.2);
+}
+
+.setup-logo{
+  width:64px;
+  height:64px;
+  background:var(--blue);
+  color:white;
   border-radius:18px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  box-shadow:var(--shadow);
+  justify-content:center;
+  font-size:30px;
+  margin-bottom:18px;
 }
 
-.store-name{
-  font-weight:800;
+.setup-card h1{
+  margin:0 0 8px;
+  color:var(--blue);
 }
 
-.store-type{
+.setup-card .intro{
   color:var(--muted);
-  font-size:12px;
-  margin-top:3px;
+  line-height:1.6;
+  margin-bottom:25px;
 }
 
-.date{
-  color:var(--muted);
-  font-size:12px;
-}
-
-main{
-  padding:15px;
-}
-
-.view{
-  display:none;
-}
-
-.view.active{
-  display:block;
-}
-
-.page-title{
-  font-size:21px;
-  font-weight:800;
-  margin:5px 0 15px;
-}
-
-.section-title{
-  font-size:16px;
-  font-weight:800;
-  margin:20px 0 10px;
-}
-
-.kpi-grid{
+.form-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
+  gap:16px;
 }
 
-.kpi{
-  border-radius:16px;
-  padding:15px;
-  min-height:92px;
+.field{
+  margin-bottom:16px;
 }
 
-.kpi small{
+.field.full{
+  grid-column:1/-1;
+}
+
+.field label{
   display:block;
-  color:#536071;
-  font-size:12px;
+  font-weight:700;
+  font-size:14px;
   margin-bottom:7px;
 }
 
-.kpi strong{
-  font-size:19px;
-}
-
-.kpi.green{background:var(--green-bg)}
-.kpi.blue{background:#e6f1ff}
-.kpi.orange{background:var(--orange-bg)}
-.kpi.purple{background:var(--purple-bg)}
-.kpi.light{background:var(--light-blue)}
-
-.balance{
-  background:var(--navy);
-  color:white;
-  margin-top:10px;
-  padding:18px;
-  border-radius:18px;
-}
-
-.balance small{
-  opacity:.75;
-}
-
-.balance strong{
-  display:block;
-  font-size:25px;
-  margin-top:5px;
-}
-
-.primary{
+.field input,
+.field select,
+.field textarea{
   width:100%;
-  padding:14px;
-  border-radius:15px;
-  background:var(--navy);
-  color:white;
-  font-weight:800;
-  margin-top:10px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:13px 14px;
+  outline:none;
+  background:white;
 }
 
-.secondary{
-  padding:12px 15px;
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(15,76,129,.1);
+}
+
+.primary-btn{
+  width:100%;
+  border:none;
+  background:var(--blue);
+  color:white;
+  padding:15px;
   border-radius:13px;
-  background:#eaf2ff;
+  font-weight:800;
+  margin-top:8px;
+}
+
+.primary-btn:hover{
+  background:var(--blue-dark);
+}
+
+.demo-link{
+  display:block;
+  text-align:center;
+  margin-top:14px;
+  color:var(--blue);
+  font-size:14px;
+  cursor:pointer;
+}
+
+/* =========================
+   APP LAYOUT
+========================= */
+
+.hidden{
+  display:none!important;
+}
+
+.layout{
+  display:flex;
+  min-height:100vh;
+}
+
+/* DESKTOP SIDEBAR */
+
+.sidebar{
+  width:250px;
+  background:var(--white);
+  border-right:1px solid var(--border);
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  z-index:20;
+  padding:20px 14px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:10px 10px 24px;
+}
+
+.brand-icon{
+  width:42px;
+  height:42px;
+  background:var(--blue);
+  color:white;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+}
+
+.brand strong{
+  color:var(--blue);
+  display:block;
+}
+
+.brand small{
+  color:var(--muted);
+}
+
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.nav button{
+  border:none;
+  background:transparent;
+  text-align:left;
+  padding:12px;
+  border-radius:11px;
+  color:#526170;
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.nav button:hover,
+.nav button.active{
+  background:var(--blue-light);
   color:var(--blue);
   font-weight:700;
 }
 
-.danger{
-  background:#fff0f1;
-  color:var(--red);
+/* MAIN */
+
+.main{
+  margin-left:250px;
+  width:calc(100% - 250px);
 }
 
-.quick-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:8px;
-  margin-top:12px;
-}
-
-.quick{
+.topbar{
+  height:72px;
   background:white;
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:12px 5px;
-  text-align:center;
-  color:var(--text);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 
-.quick .emoji{
-  font-size:21px;
-  display:block;
-  margin-bottom:5px;
+.topbar-title{
+  font-weight:800;
+  color:var(--blue);
 }
 
-.quick span:last-child{
-  font-size:11px;
-}
-
-.card{
-  background:white;
-  border-radius:18px;
-  padding:15px;
-  box-shadow:var(--shadow);
-  margin-bottom:12px;
-}
-
-.form-group{
-  margin-bottom:13px;
-}
-
-label{
-  display:block;
-  font-size:12px;
-  color:var(--muted);
-  font-weight:700;
-  margin-bottom:6px;
-}
-
-input,
-select,
-textarea{
-  width:100%;
-  border:1px solid var(--border);
-  background:white;
-  border-radius:12px;
-  padding:12px;
-  outline:none;
-  color:var(--text);
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-  border-color:var(--blue);
-}
-
-textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
-.row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.qty{
+.topbar-actions{
   display:flex;
   align-items:center;
   gap:10px;
 }
 
-.qty button{
-  width:38px;
-  height:38px;
-  border-radius:11px;
-  background:#edf3fb;
-  color:var(--navy);
-  font-size:20px;
+.icon-btn{
+  border:none;
+  background:var(--blue-light);
+  width:42px;
+  height:42px;
+  border-radius:12px;
 }
 
-.qty input{
-  text-align:center;
+.content{
+  padding:28px;
+  max-width:1500px;
+  margin:auto;
 }
 
-.total-box{
-  background:#edf5ff;
-  border-radius:15px;
-  padding:15px;
-  margin:12px 0;
+/* =========================
+   CARDS
+========================= */
+
+.store-card{
+  background:var(--blue);
+  color:white;
+  padding:22px;
+  border-radius:18px;
+  margin-bottom:20px;
 }
 
-.total-box div{
-  display:flex;
-  justify-content:space-between;
-  margin:5px 0;
+.store-card small{
+  opacity:.8;
 }
 
-.total-box strong{
-  font-size:20px;
+.store-card h2{
+  margin:6px 0;
 }
 
-.search{
-  position:relative;
+.kpis{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin-bottom:20px;
+}
+
+.kpi{
+  padding:18px;
+  border-radius:16px;
+  min-height:110px;
+}
+
+.kpi small{
+  display:block;
+  color:#5d6670;
   margin-bottom:10px;
 }
 
-.search input{
-  padding-left:40px;
+.kpi strong{
+  font-size:21px;
 }
 
-.search span{
-  position:absolute;
-  left:13px;
-  top:11px;
-}
+.kpi.sales{background:var(--green-bg)}
+.kpi.expenses{background:var(--blue-light)}
+.kpi.cost{background:var(--orange-bg)}
+.kpi.profit{background:var(--purple-bg)}
+.kpi.cash{background:#e4f1fa}
 
-.list{
-  display:flex;
-  flex-direction:column;
-  gap:9px;
-}
-
-.item{
+.card{
   background:white;
-  border-radius:16px;
-  padding:12px;
+  border-radius:var(--radius);
+  padding:20px;
+  box-shadow:var(--shadow);
+  margin-bottom:20px;
+}
+
+.card h3{
+  margin-top:0;
+}
+
+.balance{
   display:flex;
+  justify-content:space-between;
   align-items:center;
+}
+
+.balance strong{
+  font-size:28px;
+  color:var(--blue);
+}
+
+.quick-actions{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
   gap:12px;
+}
+
+.quick-btn{
   border:1px solid var(--border);
+  background:white;
+  padding:18px 10px;
+  border-radius:14px;
+  text-align:center;
 }
 
-.product-img{
-  width:52px;
-  height:52px;
-  border-radius:13px;
-  background:#edf2f8;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:24px;
-  overflow:hidden;
-  flex-shrink:0;
-}
-
-.product-img img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.item-main{
-  flex:1;
-  min-width:0;
-}
-
-.item-title{
-  font-weight:800;
-  font-size:14px;
-}
-
-.item-sub{
-  font-size:12px;
-  color:var(--muted);
-  margin-top:4px;
-}
-
-.item-right{
-  text-align:right;
-  font-weight:800;
-}
-
-.item-right small{
+.quick-btn span{
   display:block;
-  font-weight:500;
-  color:var(--muted);
-  font-size:11px;
+  font-size:25px;
+  margin-bottom:7px;
+}
+
+.add-sale{
+  width:100%;
+  background:var(--blue);
+  color:white;
+  border:none;
+  border-radius:13px;
+  padding:15px;
+  font-weight:800;
+  margin:12px 0;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.page-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.page-title h2{
+  margin:0;
+}
+
+.grid-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.data-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.data-row:last-child{
+  border-bottom:none;
 }
 
 .badge{
-  display:inline-block;
-  padding:4px 8px;
+  padding:5px 9px;
   border-radius:20px;
-  font-size:10px;
-  font-weight:800;
-  margin-top:4px;
+  font-size:12px;
+  font-weight:700;
 }
 
 .badge.green{
-  background:#e5f7ed;
-  color:#208653;
+  background:var(--green-bg);
+  color:var(--green);
 }
 
 .badge.orange{
-  background:#fff1d9;
-  color:#a5660b;
+  background:var(--orange-bg);
+  color:#a96312;
 }
 
 .badge.red{
-  background:#ffe7e9;
-  color:#b62d38;
+  background:var(--red-bg);
+  color:var(--red);
 }
 
 .empty{
@@ -434,224 +467,193 @@ textarea{
   color:var(--muted);
 }
 
-.stat-row{
-  display:flex;
-  justify-content:space-between;
-  padding:12px 0;
-  border-bottom:1px solid var(--border);
+/* =========================
+   TABLE
+========================= */
+
+.table-wrap{
+  overflow-x:auto;
 }
 
-.stat-row:last-child{
-  border-bottom:0;
-}
-
-.bar-chart{
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-around;
-  height:180px;
-  padding-top:20px;
-}
-
-.bar{
-  width:27px;
-  background:var(--blue);
-  border-radius:7px 7px 0 0;
-  position:relative;
-}
-
-.bar span{
-  position:absolute;
-  bottom:-22px;
+table{
   width:100%;
-  text-align:center;
-  font-size:10px;
-  color:var(--muted);
+  border-collapse:collapse;
 }
 
-.menu-list{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-
-.menu-item{
-  background:white;
-  padding:15px;
-  border-radius:15px;
-  display:flex;
-  align-items:center;
-  gap:13px;
-  border:1px solid var(--border);
-}
-
-.menu-icon{
-  width:40px;
-  height:40px;
-  border-radius:12px;
-  background:#edf4ff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-}
-
-.menu-text{
-  flex:1;
-}
-
-.menu-text strong{
-  display:block;
-  font-size:14px;
-}
-
-.menu-text small{
-  color:var(--muted);
-  font-size:11px;
-}
-
-.arrow{
-  color:#9aa4b2;
-}
-
-.alert{
-  margin-top:12px;
+th,
+td{
   padding:13px;
-  background:#fff5df;
-  border-radius:15px;
+  text-align:left;
+  border-bottom:1px solid var(--border);
+  white-space:nowrap;
+}
+
+th{
+  color:var(--muted);
   font-size:13px;
 }
 
-.success{
-  background:#eaf8f0;
-  color:#207b4c;
+/* =========================
+   FORMS
+========================= */
+
+.form-card{
+  max-width:900px;
 }
 
-.info{
-  background:#eaf3ff;
-  color:#245e9f;
-}
-
-.goal{
-  margin-top:12px;
-}
-
-.progress{
-  height:9px;
-  background:#e7ebf1;
-  border-radius:20px;
-  overflow:hidden;
-  margin-top:8px;
-}
-
-.progress span{
-  display:block;
-  height:100%;
-  background:var(--blue);
-  border-radius:20px;
-}
-
-.bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(540px,100%);
-  height:70px;
-  background:white;
-  border-top:1px solid var(--border);
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  z-index:100;
-  box-shadow:0 -4px 20px rgba(0,0,0,.06);
-}
-
-.nav-btn{
-  background:white;
-  color:#7a8492;
+.form-actions{
   display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-  font-size:10px;
+  gap:10px;
 }
 
-.nav-btn span:first-child{
-  font-size:20px;
-}
-
-.nav-btn.active{
-  color:var(--blue);
-  font-weight:800;
-}
-
-.tabs{
-  display:flex;
-  gap:7px;
-  margin-bottom:12px;
-}
-
-.tab{
-  flex:1;
-  padding:10px;
+.secondary-btn{
+  border:1px solid var(--border);
+  background:white;
+  color:var(--text);
+  padding:12px 18px;
   border-radius:11px;
-  background:#edf1f6;
-  color:#637083;
   font-weight:700;
-  font-size:12px;
 }
 
-.tab.active{
-  background:var(--navy);
+/* =========================
+   MOBILE NAV
+========================= */
+
+.mobile-nav{
+  display:none;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#17202a;
   color:white;
+  padding:13px 17px;
+  border-radius:12px;
+  z-index:100;
+  opacity:0;
+  transform:translateY(15px);
+  transition:.25s;
 }
 
-hr{
-  border:0;
-  border-top:1px solid var(--border);
-  margin:15px 0;
+.toast.show{
+  opacity:1;
+  transform:translateY(0);
 }
 
-.small{
-  font-size:12px;
-  color:var(--muted);
-}
+/* =========================
+   RESPONSIVE
+========================= */
 
-.center{
-  text-align:center;
-}
+@media(max-width:1100px){
 
-.logo-box{
-  width:70px;
-  height:70px;
-  background:#eaf2ff;
-  color:var(--navy);
-  border-radius:20px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:30px;
-  margin:0 auto 12px;
-}
-
-.tag{
-  display:inline-block;
-  background:#eaf3ff;
-  color:#245e9f;
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:10px;
-  font-weight:800;
-}
-
-@media(max-width:360px){
-  .kpi strong{
-    font-size:16px;
+  .kpis{
+    grid-template-columns:repeat(3,1fr);
   }
 
-  .quick-grid{
+  .grid-3{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:899px){
+
+  .sidebar{
+    display:none;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+  }
+
+  .topbar{
+    padding:0 16px;
+  }
+
+  .content{
+    padding:18px;
+    padding-bottom:90px;
+  }
+
+  .kpis{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .grid-2,
+  .grid-3{
+    grid-template-columns:1fr;
+  }
+
+  .mobile-nav{
+    display:flex;
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:68px;
+    background:white;
+    border-top:1px solid var(--border);
+    z-index:50;
+    justify-content:space-around;
+  }
+
+  .mobile-nav button{
+    border:none;
+    background:white;
+    color:var(--muted);
+    font-size:11px;
+    padding:8px;
+  }
+
+  .mobile-nav button.active{
+    color:var(--blue);
+    font-weight:800;
+  }
+}
+
+@media(max-width:600px){
+
+  .setup-card{
+    padding:22px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .kpis{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .kpi{
+    min-height:100px;
+  }
+
+  .kpi strong{
+    font-size:17px;
+  }
+
+  .quick-actions{
     grid-template-columns:repeat(2,1fr);
+  }
+
+  .store-card{
+    padding:18px;
+  }
+
+  .page-title{
+    align-items:flex-start;
+    gap:10px;
   }
 }
 </style>
@@ -659,435 +661,567 @@ hr{
 
 <body>
 
-<div class="app">
+<!-- =====================================================
+     PREMIÈRE INSTALLATION
+===================================================== -->
 
-<header class="header">
-  <div class="header-top">
+<section id="onboarding" class="onboarding hidden">
+
+  <div class="setup-card">
+
+    <div class="setup-logo">MC</div>
+
+    <h1>Bienvenue dans Mon Commerce</h1>
+
+    <p class="intro">
+      Configurons votre commerce avant de commencer.
+      Ces informations seront utilisées pour personnaliser
+      votre espace de gestion.
+    </p>
+
+    <form id="setupForm">
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Nom du commerce *</label>
+          <input id="businessName" required
+                 placeholder="Ex. Ma Boutique">
+        </div>
+
+        <div class="field">
+          <label>Propriétaire *</label>
+          <input id="ownerName" required
+                 placeholder="Votre nom">
+        </div>
+
+        <div class="field">
+          <label>Téléphone / WhatsApp</label>
+          <input id="phone"
+                 placeholder="+243 ...">
+        </div>
+
+        <div class="field">
+          <label>Type de commerce</label>
+          <select id="businessType">
+            <option value="">Choisir</option>
+            <option>Vêtements & accessoires</option>
+            <option>Alimentation</option>
+            <option>Beauté & cosmétiques</option>
+            <option>Électronique</option>
+            <option>Maison</option>
+            <option>Pharmacie</option>
+            <option>Services</option>
+            <option>Autre</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label>Adresse</label>
+          <input id="address"
+                 placeholder="Adresse de votre commerce">
+        </div>
+
+        <div class="field">
+          <label>Langue</label>
+          <select id="language">
+            <option value="fr">Français</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Devise principale</label>
+          <select id="currency">
+            <option value="CDF">CDF — Franc congolais</option>
+            <option value="USD">USD — Dollar américain</option>
+            <option value="EUR">EUR — Euro</option>
+            <option value="GBP">GBP — Livre sterling</option>
+            <option value="KES">KES — Shilling kényan</option>
+            <option value="UGX">UGX — Shilling ougandais</option>
+            <option value="XAF">XAF — Franc CFA</option>
+            <option value="XOF">XOF — Franc CFA</option>
+          </select>
+        </div>
+
+      </div>
+
+      <button class="primary-btn" type="submit">
+        Commencer avec Mon Commerce →
+      </button>
+
+    </form>
+
+    <span class="demo-link" onclick="activateDemo()">
+      Voir une démonstration
+    </span>
+
+  </div>
+</section>
+
+
+<!-- =====================================================
+     APPLICATION
+===================================================== -->
+
+<div id="app" class="app hidden">
+
+<div class="layout">
+
+<!-- SIDEBAR DESKTOP -->
+
+<aside class="sidebar">
+
+  <div class="brand">
+    <div class="brand-icon">MC</div>
     <div>
-      <div class="brand">Mon Commerce</div>
-      <div class="subtitle" data-i18n="subtitle">Gère ton commerce simplement</div>
+      <strong>Mon Commerce</strong>
+      <small>Gestion intelligente</small>
     </div>
-    <button class="icon-btn" onclick="openView('menu')">☰</button>
   </div>
 
-  <div class="store-card">
-    <div>
-      <div class="store-name" id="storeNameDisplay">Boutique Élégance</div>
-      <div class="store-type">Vêtements & accessoires</div>
-    </div>
-    <div class="date" id="currentDate"></div>
+  <nav class="nav">
+
+    <button onclick="showPage('dashboard')" data-page="dashboard">
+      📊 Tableau de bord
+    </button>
+
+    <button onclick="showPage('sales')" data-page="sales">
+      💰 Ventes
+    </button>
+
+    <button onclick="showPage('stock')" data-page="stock">
+      📦 Stock
+    </button>
+
+    <button onclick="showPage('products')" data-page="products">
+      🏷️ Produits
+    </button>
+
+    <button onclick="showPage('clients')" data-page="clients">
+      👥 Clients
+    </button>
+
+    <button onclick="showPage('suppliers')" data-page="suppliers">
+      🤝 Fournisseurs
+    </button>
+
+    <button onclick="showPage('expenses')" data-page="expenses">
+      💸 Dépenses
+    </button>
+
+    <button onclick="showPage('reports')" data-page="reports">
+      📈 Rapports
+    </button>
+
+    <button onclick="showPage('orders')" data-page="orders">
+      🛒 Commandes
+    </button>
+
+    <button onclick="showPage('store')" data-page="store">
+      🏪 Boutique
+    </button>
+
+    <button onclick="showPage('marketing')" data-page="marketing">
+      📢 Publicité
+    </button>
+
+    <button onclick="showPage('assistant')" data-page="assistant">
+      🤖 Assistant
+    </button>
+
+    <button onclick="showPage('settings')" data-page="settings">
+      ⚙️ Paramètres
+    </button>
+
+  </nav>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+<header class="topbar">
+
+  <div class="topbar-title" id="pageTitle">
+    Tableau de bord
   </div>
+
+  <div class="topbar-actions">
+
+    <button class="icon-btn" onclick="showPage('notifications')">
+      🔔
+    </button>
+
+    <button class="icon-btn" onclick="showPage('settings')">
+      ⚙️
+    </button>
+
+  </div>
+
 </header>
 
-<main>
 
-<!-- DASHBOARD -->
-<section id="dashboard" class="view active">
+<div class="content">
 
-  <div class="kpi-grid">
 
-    <div class="kpi green">
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section id="dashboard" class="page active">
+
+  <div class="store-card">
+
+    <small>Mon commerce</small>
+
+    <h2 id="dashBusinessName">Mon Commerce</h2>
+
+    <span id="dashBusinessType">
+      Votre activité commerciale
+    </span>
+
+    <br>
+
+    <small id="dashDate"></small>
+
+  </div>
+
+
+  <!-- KPI -->
+
+  <div class="kpis">
+
+    <div class="kpi sales">
       <small>Ventes</small>
-      <strong id="kpiSales">125 000 FC</strong>
+      <strong id="kpiSales">0</strong>
     </div>
 
-    <div class="kpi blue">
+    <div class="kpi expenses">
       <small>Dépenses</small>
-      <strong id="kpiExpenses">20 000 FC</strong>
+      <strong id="kpiExpenses">0</strong>
     </div>
 
-    <div class="kpi orange">
+    <div class="kpi cost">
       <small>Coût marchandises</small>
-      <strong id="kpiCost">70 000 FC</strong>
+      <strong id="kpiCost">0</strong>
     </div>
 
-    <div class="kpi purple">
-      <small>Bénéfice</small>
-      <strong id="kpiProfit">35 000 FC</strong>
+    <div class="kpi profit">
+      <small>Bénéfice net</small>
+      <strong id="kpiProfit">0</strong>
+    </div>
+
+    <div class="kpi cash">
+      <small>Argent disponible</small>
+      <strong id="kpiCash">0</strong>
     </div>
 
   </div>
 
-  <div class="balance">
-    <small>Argent disponible</small>
-    <strong id="availableMoney">35 000 FC</strong>
-  </div>
 
-  <button class="primary" onclick="openView('sale')">
-    ＋ Ajouter une vente
-  </button>
-
-  <div class="quick-grid">
-    <button class="quick" onclick="openView('sales')">
-      <span class="emoji">🧾</span>
-      <span>Ventes</span>
-    </button>
-
-    <button class="quick" onclick="openView('expenses')">
-      <span class="emoji">💸</span>
-      <span>Dépenses</span>
-    </button>
-
-    <button class="quick" onclick="openView('stock')">
-      <span class="emoji">📦</span>
-      <span>Stock</span>
-    </button>
-
-    <button class="quick" onclick="openView('menu')">
-      <span class="emoji">•••</span>
-      <span>Plus</span>
-    </button>
-  </div>
-
-  <div class="section-title">Aujourd'hui</div>
-
-  <div class="card">
-    <div class="stat-row">
-      <span>Ventes</span>
-      <strong id="todaySales">125 000 FC</strong>
-    </div>
-
-    <div class="stat-row">
-      <span>Bénéfice estimé</span>
-      <strong id="todayProfit">35 000 FC</strong>
-    </div>
-
-    <div class="stat-row">
-      <span>Produits en stock</span>
-      <strong id="stockCount">70</strong>
-    </div>
-  </div>
-
-  <div class="alert">
-    💡 <strong>Assistant Mon Commerce</strong><br>
-    Tes ventes sont bonnes aujourd'hui. Pense à surveiller les produits qui approchent du stock minimum.
-  </div>
-
-  <div class="card goal">
-    <strong>🎯 Objectif du mois</strong>
-    <div class="small">Ventes : 125 000 / 500 000 FC</div>
-    <div class="progress">
-      <span style="width:25%"></span>
-    </div>
-  </div>
-
-</section>
-
-
-<!-- VENTES -->
-<section id="sales" class="view">
-
-  <div class="page-title">Ventes</div>
-
-  <button class="primary" onclick="openView('sale')">
-    ＋ Nouvelle vente
-  </button>
-
-  <div class="section-title">Historique</div>
-
-  <div class="tabs">
-    <button class="tab active">Aujourd'hui</button>
-    <button class="tab">Semaine</button>
-    <button class="tab">Mois</button>
-  </div>
-
-  <div id="salesList" class="list"></div>
-
-</section>
-
-
-<!-- AJOUTER VENTE -->
-<section id="sale" class="view">
-
-  <div class="page-title">Ajouter une vente</div>
+  <!-- ACTION RAPIDE -->
 
   <div class="card">
 
-    <div class="form-group">
-      <label>Produit</label>
-      <select id="saleProduct" onchange="calculateSale()"></select>
-    </div>
+    <h3>Actions rapides</h3>
 
-    <div class="form-group">
-      <label>Quantité</label>
-
-      <div class="qty">
-        <button onclick="changeQty(-1)">−</button>
-        <input id="saleQty" type="number" value="1" min="1" oninput="calculateSale()">
-        <button onclick="changeQty(1)">+</button>
-      </div>
-    </div>
-
-    <div class="row">
-
-      <div class="form-group">
-        <label>Prix d'achat unitaire</label>
-        <input id="saleBuyPrice" type="number" readonly>
-      </div>
-
-      <div class="form-group">
-        <label>Prix de vente unitaire</label>
-        <input id="salePrice" type="number" readonly>
-      </div>
-
-    </div>
-
-    <div class="form-group">
-      <label>Client</label>
-      <input id="saleClient" placeholder="Nom du client (facultatif)">
-    </div>
-
-    <div class="form-group">
-      <label>Mode de paiement</label>
-
-      <select id="paymentMethod">
-        <option>Espèces</option>
-        <option>M-Pesa</option>
-        <option>Airtel Money</option>
-        <option>Orange Money</option>
-        <option>Virement bancaire</option>
-        <option>Carte bancaire</option>
-        <option>Crédit client</option>
-        <option>Autre</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Date</label>
-      <input id="saleDate" type="date">
-    </div>
-
-    <div class="total-box">
-
-      <div>
-        <span>Total</span>
-        <strong id="saleTotal">35 000 FC</strong>
-      </div>
-
-      <div>
-        <span>Bénéfice</span>
-        <strong id="saleProfit">20 000 FC</strong>
-      </div>
-
-    </div>
-
-    <button class="primary" onclick="saveSale()">
-      Enregistrer la vente
+    <button class="add-sale"
+            onclick="showPage('sales')">
+      + Ajouter une vente
     </button>
+
+    <div class="quick-actions">
+
+      <button class="quick-btn"
+              onclick="showPage('sales')">
+        <span>💰</span>
+        Ventes
+      </button>
+
+      <button class="quick-btn"
+              onclick="showPage('expenses')">
+        <span>💸</span>
+        Dépenses
+      </button>
+
+      <button class="quick-btn"
+              onclick="showPage('stock')">
+        <span>📦</span>
+        Stock
+      </button>
+
+      <button class="quick-btn"
+              onclick="showPage('clients')">
+        <span>👥</span>
+        Clients
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- INFOS -->
+
+  <div class="grid-2">
+
+    <div class="card">
+
+      <h3>🎯 Objectif</h3>
+
+      <p>
+        Aucun objectif configuré.
+      </p>
+
+      <button class="secondary-btn"
+              onclick="toast('Le module Objectifs sera disponible dans la configuration avancée.')">
+        Configurer
+      </button>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>🔔 Alertes intelligentes</h3>
+
+      <div id="alerts">
+        <div class="empty">
+          Aucune alerte pour le moment.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- TOP PRODUITS -->
+
+  <div class="card">
+
+    <h3>⭐ Produits les plus vendus</h3>
+
+    <div id="bestProducts">
+      <div class="empty">
+        Les statistiques apparaîtront après vos premières ventes.
+      </div>
+    </div>
 
   </div>
 
 </section>
 
 
-<!-- DEPENSES -->
-<section id="expenses" class="view">
+<!-- =====================================================
+     VENTES
+===================================================== -->
 
-  <div class="page-title">Ajouter une dépense</div>
+<section id="sales" class="page">
 
-  <div class="card">
+  <div class="page-title">
+    <h2>💰 Ventes</h2>
+  </div>
 
-    <div class="form-group">
-      <label>Catégorie</label>
+  <div class="grid-2">
 
-      <select id="expenseCategory">
-        <option>Transport</option>
-        <option>Loyer</option>
-        <option>Électricité</option>
-        <option>Internet</option>
-        <option>Salaires</option>
-        <option>Publicité</option>
-        <option>Fournitures</option>
-        <option>Autre</option>
-      </select>
+    <div class="card form-card">
+
+      <h3>Ajouter une vente</h3>
+
+      <form id="saleForm">
+
+        <div class="field">
+          <label>Produit</label>
+          <select id="saleProduct" required>
+            <option value="">Choisir un produit</option>
+          </select>
+        </div>
+
+        <div class="form-grid">
+
+          <div class="field">
+            <label>Quantité</label>
+            <input id="saleQuantity"
+                   type="number"
+                   min="1"
+                   value="1"
+                   required>
+          </div>
+
+          <div class="field">
+            <label>Prix de vente unitaire</label>
+            <input id="salePrice"
+                   type="number"
+                   min="0"
+                   required>
+          </div>
+
+          <div class="field">
+            <label>Prix d'achat unitaire</label>
+            <input id="salePurchasePrice"
+                   type="number"
+                   min="0"
+                   required>
+          </div>
+
+          <div class="field">
+            <label>Remise</label>
+            <input id="saleDiscount"
+                   type="number"
+                   min="0"
+                   value="0">
+          </div>
+
+        </div>
+
+        <div class="field">
+          <label>Client</label>
+          <input id="saleClient"
+                 placeholder="Client comptant ou nom">
+        </div>
+
+        <div class="field">
+          <label>Mode de paiement</label>
+
+          <select id="salePayment">
+            <option>Espèces</option>
+            <option>Mobile Money</option>
+            <option>Carte</option>
+            <option>Virement</option>
+            <option>Crédit</option>
+          </select>
+
+        </div>
+
+        <button class="primary-btn">
+          Enregistrer la vente
+        </button>
+
+      </form>
+
     </div>
 
-    <div class="form-group">
-      <label>Montant</label>
-      <input id="expenseAmount" type="number" placeholder="Ex. 10000">
+
+    <div class="card">
+
+      <h3>Historique des ventes</h3>
+
+      <div id="salesHistory">
+        <div class="empty">
+          Aucune vente enregistrée.
+        </div>
+      </div>
+
     </div>
 
-    <div class="form-group">
-      <label>Date</label>
-      <input id="expenseDate" type="date">
-    </div>
+  </div>
 
-    <div class="form-group">
-      <label>Mode de paiement</label>
+</section>
 
-      <select id="expensePayment">
-        <option>Espèces</option>
-        <option>M-Pesa</option>
-        <option>Airtel Money</option>
-        <option>Orange Money</option>
-        <option>Virement bancaire</option>
-        <option>Carte bancaire</option>
-        <option>Autre</option>
-      </select>
-    </div>
 
-    <div class="form-group">
-      <label>Remarque</label>
-      <textarea id="expenseNote" placeholder="Description facultative"></textarea>
-    </div>
+<!-- =====================================================
+     STOCK
+===================================================== -->
 
-    <button class="primary" onclick="saveExpense()">
-      Enregistrer la dépense
+<section id="stock" class="page">
+
+  <div class="page-title">
+
+    <h2>📦 Stock</h2>
+
+    <button class="primary-btn"
+            style="width:auto"
+            onclick="showPage('products')">
+      + Ajouter un produit
     </button>
 
   </div>
 
-</section>
 
+  <div class="grid-3">
 
-<!-- STOCK -->
-<section id="stock" class="view">
+    <div class="card">
+      <small>Stock actuel</small>
+      <h2 id="stockTotal">0</h2>
+    </div>
 
-  <div class="page-title">Mon stock</div>
+    <div class="card">
+      <small>Stock faible</small>
+      <h2 id="stockLow">0</h2>
+    </div>
 
-  <div class="search">
-    <span>🔎</span>
-    <input id="stockSearch" placeholder="Rechercher un produit..." oninput="renderProducts()">
+    <div class="card">
+      <small>Rupture</small>
+      <h2 id="stockOut">0</h2>
+    </div>
+
   </div>
 
-  <button class="primary" onclick="showAddProduct()">
-    ＋ Ajouter un produit
-  </button>
-
-  <div class="section-title">Produits</div>
-
-  <div id="productList" class="list"></div>
-
-</section>
-
-
-<!-- AJOUT PRODUIT -->
-<section id="addProduct" class="view">
-
-  <div class="page-title">Ajouter un produit</div>
 
   <div class="card">
 
-    <div class="form-group">
-      <label>Photo du produit</label>
-      <input id="productPhoto" type="file" accept="image/*">
-    </div>
+    <h3>Stock actuel</h3>
 
-    <div class="form-group">
-      <label>Nom du produit</label>
-      <input id="productName" placeholder="Ex. Robe">
-    </div>
+    <div class="table-wrap">
 
-    <div class="row">
+      <table>
 
-      <div class="form-group">
-        <label>Catégorie</label>
-        <input id="productCategory" placeholder="Vêtements">
-      </div>
+        <thead>
+          <tr>
+            <th>Produit</th>
+            <th>Référence</th>
+            <th>Quantité</th>
+            <th>Prix achat</th>
+            <th>État</th>
+          </tr>
+        </thead>
 
-      <div class="form-group">
-        <label>Référence</label>
-        <input id="productReference" placeholder="REF-001">
-      </div>
+        <tbody id="stockTable"></tbody>
+
+      </table>
 
     </div>
-
-    <div class="row">
-
-      <div class="form-group">
-        <label>Prix d'achat</label>
-        <input id="productBuy" type="number">
-      </div>
-
-      <div class="form-group">
-        <label>Prix de vente</label>
-        <input id="productSell" type="number">
-      </div>
-
-    </div>
-
-    <div class="row">
-
-      <div class="form-group">
-        <label>Quantité</label>
-        <input id="productQty" type="number" value="0">
-      </div>
-
-      <div class="form-group">
-        <label>Stock minimum</label>
-        <input id="productMin" type="number" value="3">
-      </div>
-
-    </div>
-
-    <div class="form-group">
-      <label>Fournisseur</label>
-      <input id="productSupplier" placeholder="Nom du fournisseur">
-    </div>
-
-    <button class="primary" onclick="saveProduct()">
-      Enregistrer le produit
-    </button>
 
   </div>
 
-</section>
 
+  <div class="grid-2">
 
-<!-- CLIENTS -->
-<section id="clients" class="view">
+    <div class="card">
 
-  <div class="page-title">Clients (crédits)</div>
+      <h3>📥 Entrées de stock</h3>
 
-  <button class="primary">
-    ＋ Ajouter un client
-  </button>
+      <p>
+        Achats, réapprovisionnement, retours fournisseurs,
+        corrections d'inventaire...
+      </p>
 
-  <div class="search" style="margin-top:12px">
-    <span>🔎</span>
-    <input placeholder="Rechercher un client...">
-  </div>
+      <button class="secondary-btn"
+              onclick="toast('Module des entrées de stock en préparation.')">
+        Ajouter une entrée
+      </button>
 
-  <div class="list">
-
-    <div class="item">
-      <div class="product-img">👩🏽</div>
-      <div class="item-main">
-        <div class="item-title">Aline M.</div>
-        <div class="item-sub">45 000 FC</div>
-        <span class="badge orange">En attente</span>
-      </div>
-      <div class="item-right">›</div>
     </div>
 
-    <div class="item">
-      <div class="product-img">👩🏽</div>
-      <div class="item-main">
-        <div class="item-title">Grâce B.</div>
-        <div class="item-sub">30 000 FC</div>
-        <span class="badge orange">En cours</span>
-      </div>
-      <div class="item-right">›</div>
-    </div>
 
-    <div class="item">
-      <div class="product-img">👨🏽</div>
-      <div class="item-main">
-        <div class="item-title">Jean K.</div>
-        <div class="item-sub">20 000 FC</div>
-        <span class="badge green">Payé</span>
-      </div>
-      <div class="item-right">›</div>
-    </div>
+    <div class="card">
 
-    <div class="item">
-      <div class="product-img">👩🏽</div>
-      <div class="item-main">
-        <div class="item-title">Solange T.</div>
-        <div class="item-sub">15 000 FC</div>
-        <span class="badge green">Payé</span>
-      </div>
-      <div class="item-right">›</div>
+      <h3>📤 Sorties de stock</h3>
+
+      <p>
+        Ventes, pertes, cadeaux, produits endommagés,
+        retours, corrections...
+      </p>
+
+      <button class="secondary-btn"
+              onclick="toast('Module des sorties de stock en préparation.')">
+        Ajouter une sortie
+      </button>
+
     </div>
 
   </div>
@@ -1095,50 +1229,94 @@ hr{
 </section>
 
 
-<!-- FOURNISSEURS -->
-<section id="suppliers" class="view">
+<!-- =====================================================
+     PRODUITS
+===================================================== -->
 
-  <div class="page-title">Fournisseurs (dettes)</div>
+<section id="products" class="page">
 
-  <button class="primary">
-    ＋ Ajouter un fournisseur
-  </button>
-
-  <div class="search" style="margin-top:12px">
-    <span>🔎</span>
-    <input placeholder="Rechercher un fournisseur...">
+  <div class="page-title">
+    <h2>🏷️ Produits</h2>
   </div>
 
-  <div class="list">
+  <div class="grid-2">
 
-    <div class="item">
-      <div class="product-img">🏭</div>
-      <div class="item-main">
-        <div class="item-title">Kaba Fashion</div>
-        <div class="item-sub">80 000 FC</div>
-        <span class="badge orange">En attente</span>
-      </div>
-      <div class="item-right">›</div>
+    <div class="card">
+
+      <h3>Ajouter un produit</h3>
+
+      <form id="productForm">
+
+        <div class="field">
+          <label>Nom du produit *</label>
+          <input id="productName" required>
+        </div>
+
+        <div class="field">
+          <label>Référence / code</label>
+          <input id="productReference">
+        </div>
+
+        <div class="form-grid">
+
+          <div class="field">
+            <label>Prix d'achat</label>
+            <input id="productPurchase"
+                   type="number"
+                   min="0"
+                   value="0">
+          </div>
+
+          <div class="field">
+            <label>Prix de vente</label>
+            <input id="productSale"
+                   type="number"
+                   min="0"
+                   value="0">
+          </div>
+
+          <div class="field">
+            <label>Stock initial</label>
+            <input id="productStock"
+                   type="number"
+                   min="0"
+                   value="0">
+          </div>
+
+          <div class="field">
+            <label>Stock minimum</label>
+            <input id="productMinimum"
+                   type="number"
+                   min="0"
+                   value="0">
+          </div>
+
+        </div>
+
+        <div class="field">
+          <label>Catégorie</label>
+          <input id="productCategory">
+        </div>
+
+        <button class="primary-btn">
+          Enregistrer le produit
+        </button>
+
+      </form>
+
     </div>
 
-    <div class="item">
-      <div class="product-img">🏭</div>
-      <div class="item-main">
-        <div class="item-title">Global Textile</div>
-        <div class="item-sub">50 000 FC</div>
-        <span class="badge orange">En cours</span>
-      </div>
-      <div class="item-right">›</div>
-    </div>
 
-    <div class="item">
-      <div class="product-img">🏭</div>
-      <div class="item-main">
-        <div class="item-title">Beauté Plus</div>
-        <div class="item-sub">25 000 FC</div>
-        <span class="badge green">Payé</span>
+    <div class="card">
+
+      <h3>Catalogue</h3>
+
+      <div id="productsList">
+        <div class="empty">
+          Aucun produit.
+        </div>
       </div>
-      <div class="item-right">›</div>
+
     </div>
 
   </div>
@@ -1146,98 +1324,29 @@ hr{
 </section>
 
 
-<!-- RAPPORTS -->
-<section id="reports" class="view">
+<!-- =====================================================
+     CLIENTS
+===================================================== -->
 
-  <div class="page-title">Rapports et statistiques</div>
+<section id="clients" class="page">
 
-  <div class="tabs">
-    <button class="tab active">Jour</button>
-    <button class="tab">Semaine</button>
-    <button class="tab">Mois</button>
+  <div class="page-title">
+    <h2>👥 Clients</h2>
   </div>
 
   <div class="card">
 
-    <div class="stat-row">
-      <span>Total des ventes</span>
-      <strong>125 000 FC</strong>
-    </div>
+    <h3>CRM clients</h3>
 
-    <div class="stat-row">
-      <span>Total dépenses</span>
-      <strong>20 000 FC</strong>
-    </div>
-
-    <div class="stat-row">
-      <span>Coût marchandises</span>
-      <strong>70 000 FC</strong>
-    </div>
-
-    <div class="stat-row">
-      <span>Bénéfice</span>
-      <strong>35 000 FC</strong>
-    </div>
-
-  </div>
-
-  <div class="card">
-
-    <strong>Évolution des ventes</strong>
-
-    <div class="bar-chart">
-
-      <div class="bar" style="height:50%">
-        <span>Lun</span>
-      </div>
-
-      <div class="bar" style="height:70%">
-        <span>Mar</span>
-      </div>
-
-      <div class="bar" style="height:45%">
-        <span>Mer</span>
-      </div>
-
-      <div class="bar" style="height:80%">
-        <span>Jeu</span>
-      </div>
-
-      <div class="bar" style="height:65%">
-        <span>Ven</span>
-      </div>
-
-      <div class="bar" style="height:90%">
-        <span>Sam</span>
-      </div>
-
-      <div class="bar" style="height:55%">
-        <span>Dim</span>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="card">
-
-    <strong>📊 Analyse intelligente</strong>
-
-    <p class="small" style="margin-top:8px">
-      Le bénéfice dépend fortement de la marge réalisée sur tes produits.
-      Les produits avec une faible rotation devraient être surveillés.
+    <p>
+      Gérez les clients, achats, crédits, paiements,
+      historique et fidélité.
     </p>
 
-    <hr>
-
-    <div class="stat-row">
-      <span>Produit le plus rentable</span>
-      <strong>Robe</strong>
-    </div>
-
-    <div class="stat-row">
-      <span>Stock à surveiller</span>
-      <strong>Jupe</strong>
+    <div id="clientsList">
+      <div class="empty">
+        Aucun client enregistré.
+      </div>
     </div>
 
   </div>
@@ -1245,153 +1354,383 @@ hr{
 </section>
 
 
-<!-- MENU -->
-<section id="menu" class="view">
+<!-- =====================================================
+     FOURNISSEURS
+===================================================== -->
 
-  <div class="page-title">Mon Commerce</div>
+<section id="suppliers" class="page">
 
-  <div class="card center">
-    <div class="logo-box">🏪</div>
-    <strong id="menuStoreName">Boutique Élégance</strong>
-    <div class="small">Vêtements & accessoires</div>
-    <span class="tag" style="margin-top:8px">Compte commerçant</span>
+  <div class="page-title">
+    <h2>🤝 Fournisseurs</h2>
   </div>
-
-  <div class="menu-list">
-
-    <button class="menu-item" onclick="openView('profile')">
-      <div class="menu-icon">🏪</div>
-      <div class="menu-text">
-        <strong>Profil du commerce</strong>
-        <small>Nom, propriétaire, adresse, téléphone</small>
-      </div>
-      <div class="arrow">›</div>
-    </button>
-
-    <button class="menu-item" onclick="openView('publicStore')">
-      <div class="menu-icon">🛍️</div>
-      <div class="menu-text">
-        <strong>Boutique publique</strong>
-        <small>Ce que tes clients peuvent voir</small>
-      </div>
-      <div class="arrow">›</div>
-    </button>
-
-    <button class="menu-item" onclick="openView('advertising')">
-      <div class="menu-icon">📣</div>
-      <div class="menu-text">
-        <strong>Publicité & partage</strong>
-        <small>Créer une publicité et la partager</small>
-      </div>
-      <div class="arrow">›</div>
-    </button>
-
-    <button class="menu-item" onclick="openView('orders')">
-      <div class="menu-icon">🛒</div>
-      <div class="menu-text">
-        <strong>Commandes</strong>
-        <small>Commandes de tes clients</small>
-      </div>
-      <div class="arrow">›</div>
-    </button>
-
-    <button class="menu-item" onclick="openView('messages')">
-      <div class="menu-icon">💬</div>
-      <div class="menu-text">
-        <strong>Messages</strong>
-        <small>Communiquer avec les clients</small>
-      </div>
-      <div class="arrow">›</div>
-    </button>
-
-    <button class="menu-item" onclick="openView('payments')">
-      <div class="menu-icon">💳</div>
-      <div class="menu-text">
-        <strong>Paiements en ligne</strong>
-        <small>M-Pesa, Airtel Money, Orange Money...</small>
-      </div>
-      <div class="arrow">›</div>
-    </button>
-
-    <button class="menu-item" onclick="openView('settings')">
-      <div class="menu-icon">⚙️</div>
-      <div class="menu-text">
-        <strong>Paramètres</strong>
-        <small>Langue, devise et taux de change</small>
-      </div>
-      <div class="arrow">›</div>
-    </button>
-
-    <button class="menu-item" onclick="openView('security')">
-      <div class="menu-icon">🔐</div>
-      <div class="menu-text">
-        <strong>Sécurité & rôles</strong>
-        <small>Protection, employés et permissions</small>
-      </div>
-      <div class="arrow">›</div>
-    </button>
-
-    <button class="menu-item" onclick="openView('backup')">
-      <div class="menu-icon">☁️</div>
-      <div class="menu-text">
-        <strong>Sauvegarde des données</strong>
-        <small>Préparer la sauvegarde et récupération</small>
-      </div>
-      <div class="arrow">›</div>
-    </button>
-
-    <button class="menu-item" onclick="openView('laboratory')">
-      <div class="menu-icon">🧪</div>
-      <div class="menu-text">
-        <strong>Laboratoire Mon Commerce</strong>
-        <small>Suggestions et évolution du produit</small>
-      </div>
-      <div class="arrow">›</div>
-    </button>
-
-    <button class="menu-item" onclick="openView('history')">
-      <div class="menu-icon">🕘</div>
-      <div class="menu-text">
-        <strong>Historique des versions</strong>
-        <small>2.3 Original et futures versions</small>
-      </div>
-      <div class="arrow">›</div>
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- PROFIL -->
-<section id="profile" class="view">
-
-  <div class="page-title">Profil du commerce</div>
 
   <div class="card">
 
-    <div class="form-group">
-      <label>Nom du commerce</label>
-      <input id="businessName" value="Boutique Élégance">
+    <h3>Gestion des fournisseurs</h3>
+
+    <p>
+      Fournisseurs, achats, dettes, paiements et historique.
+    </p>
+
+    <div class="empty">
+      Aucun fournisseur enregistré.
     </div>
 
-    <div class="form-group">
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     DÉPENSES
+===================================================== -->
+
+<section id="expenses" class="page">
+
+  <div class="page-title">
+    <h2>💸 Dépenses</h2>
+  </div>
+
+  <div class="grid-2">
+
+    <div class="card">
+
+      <h3>Ajouter une dépense</h3>
+
+      <form id="expenseForm">
+
+        <div class="field">
+          <label>Catégorie</label>
+
+          <select id="expenseCategory">
+
+            <option>Transport</option>
+            <option>Loyer</option>
+            <option>Électricité</option>
+            <option>Internet</option>
+            <option>Salaires</option>
+            <option>Publicité</option>
+            <option>Emballage</option>
+            <option>Livraison</option>
+            <option>Taxes et frais</option>
+            <option>Réparation</option>
+            <option>Autre</option>
+
+          </select>
+
+        </div>
+
+        <div class="field">
+          <label>Montant</label>
+          <input id="expenseAmount"
+                 type="number"
+                 min="0"
+                 required>
+        </div>
+
+        <div class="field">
+          <label>Description</label>
+          <textarea id="expenseDescription"></textarea>
+        </div>
+
+        <button class="primary-btn">
+          Enregistrer la dépense
+        </button>
+
+      </form>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Historique</h3>
+
+      <div id="expensesHistory">
+
+        <div class="empty">
+          Aucune dépense enregistrée.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     RAPPORTS
+===================================================== -->
+
+<section id="reports" class="page">
+
+  <div class="page-title">
+    <h2>📈 Rapports & statistiques</h2>
+  </div>
+
+  <div class="grid-3">
+
+    <div class="card">
+      <small>Ventes</small>
+      <h2 id="reportSales">0</h2>
+    </div>
+
+    <div class="card">
+      <small>Dépenses</small>
+      <h2 id="reportExpenses">0</h2>
+    </div>
+
+    <div class="card">
+      <small>Bénéfice net</small>
+      <h2 id="reportProfit">0</h2>
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h3>Analyse</h3>
+
+    <p>
+      Les rapports jour, semaine, mois et année seront
+      calculés automatiquement à partir des opérations réelles.
+    </p>
+
+    <button class="secondary-btn"
+            onclick="toast('Export PDF/Excel/CSV prévu dans la version complète.')">
+      Exporter le rapport
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     COMMANDES
+===================================================== -->
+
+<section id="orders" class="page">
+
+  <div class="page-title">
+    <h2>🛒 Commandes</h2>
+  </div>
+
+  <div class="card">
+
+    <h3>Centre des commandes</h3>
+
+    <p>
+      Nouvelles → Confirmées → Préparation → Emballées →
+      En livraison → Livrées.
+    </p>
+
+    <div class="empty">
+      Aucune commande.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     BOUTIQUE
+===================================================== -->
+
+<section id="store" class="page">
+
+  <div class="page-title">
+    <h2>🏪 Boutique publique</h2>
+  </div>
+
+  <div class="card">
+
+    <h3 id="publicStoreName">
+      Votre boutique
+    </h3>
+
+    <p>
+      Cet espace sera visible par vos clients.
+    </p>
+
+    <div id="publicProducts">
+      <div class="empty">
+        Ajoutez des produits pour commencer votre catalogue.
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     MARKETING
+===================================================== -->
+
+<section id="marketing" class="page">
+
+  <div class="page-title">
+    <h2>📢 Publicité</h2>
+  </div>
+
+  <div class="card">
+
+    <h3>Créer une publicité</h3>
+
+    <textarea id="adText"
+              rows="7"
+              style="width:100%;padding:14px;border:1px solid var(--border);border-radius:12px;"
+              placeholder="Écrivez votre publicité..."></textarea>
+
+    <button class="primary-btn"
+            onclick="shareAd()">
+      📲 Partager
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     ASSISTANT
+===================================================== -->
+
+<section id="assistant" class="page">
+
+  <div class="page-title">
+    <h2>🤖 Assistant Mon Commerce</h2>
+  </div>
+
+  <div class="card">
+
+    <h3>Assistant commerçant</h3>
+
+    <p>
+      L'assistant analysera vos données pour répondre
+      aux questions concernant les ventes, bénéfices,
+      stock, dépenses, clients et tendances.
+    </p>
+
+    <div class="empty">
+      Assistant IA connecté aux données : prochaine étape.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     PARAMÈTRES
+===================================================== -->
+
+<section id="settings" class="page">
+
+  <div class="page-title">
+    <h2>⚙️ Paramètres</h2>
+  </div>
+
+
+  <div class="card">
+
+    <h3>Profil du commerce</h3>
+
+    <div class="field">
+      <label>Nom</label>
+      <input id="settingBusinessName">
+    </div>
+
+    <div class="field">
       <label>Propriétaire</label>
-      <input id="ownerName" placeholder="Nom du propriétaire">
+      <input id="settingOwner">
     </div>
 
-    <div class="form-group">
+    <div class="field">
       <label>Adresse</label>
-      <input id="businessAddress" placeholder="Adresse du commerce">
+      <input id="settingAddress">
     </div>
 
-    <div class="form-group">
-      <label>Téléphone / WhatsApp</label>
-      <input id="businessPhone" placeholder="+243 ...">
+    <div class="field">
+      <label>Téléphone</label>
+      <input id="settingPhone">
     </div>
 
-    <button class="primary" onclick="saveProfile()">
-      Enregistrer le profil
+    <button class="primary-btn"
+            onclick="saveSettings()">
+      Enregistrer
+    </button>
+
+  </div>
+
+
+  <div class="card">
+
+    <h3>🌍 Langue & devise</h3>
+
+    <div class="form-grid">
+
+      <div class="field">
+        <label>Langue</label>
+
+        <select id="settingLanguage">
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+        </select>
+
+      </div>
+
+      <div class="field">
+        <label>Devise principale</label>
+
+        <select id="settingCurrency">
+          <option value="CDF">CDF</option>
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+          <option value="KES">KES</option>
+          <option value="UGX">UGX</option>
+          <option value="XAF">XAF</option>
+          <option value="XOF">XOF</option>
+        </select>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h3>🔐 Sécurité</h3>
+
+    <p>
+      Authentification, rôles, permissions, sessions,
+      sauvegardes et journal d'activité feront partie
+      de l'architecture sécurisée complète.
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <h3>💾 Données</h3>
+
+    <button class="secondary-btn"
+            onclick="exportData()">
+      Exporter mes données
+    </button>
+
+    <button class="secondary-btn"
+            onclick="resetCommerce()">
+      Réinitialiser le commerce
     </button>
 
   </div>
@@ -1399,241 +1738,20 @@ hr{
 </section>
 
 
-<!-- PUBLIC STORE -->
-<section id="publicStore" class="view">
+<!-- =====================================================
+     NOTIFICATIONS
+===================================================== -->
 
-  <div class="page-title">Boutique publique</div>
+<section id="notifications" class="page">
 
-  <div class="card center">
-
-    <div class="logo-box">🛍️</div>
-
-    <strong>Boutique Élégance</strong>
-
-    <div class="small" style="margin-top:5px">
-      Une boutique publique pour tes clients
-    </div>
-
-    <hr>
-
-    <div class="success" style="padding:12px;border-radius:12px">
-      ✓ Les clients peuvent voir les produits et passer commande.
-    </div>
-
+  <div class="page-title">
+    <h2>🔔 Notifications</h2>
   </div>
 
   <div class="card">
 
-    <strong>Ce que le client peut voir</strong>
-
-    <div class="stat-row">
-      <span>Produits</span>
-      <span>✓</span>
-    </div>
-
-    <div class="stat-row">
-      <span>Prix</span>
-      <span>✓</span>
-    </div>
-
-    <div class="stat-row">
-      <span>Promotions</span>
-      <span>✓</span>
-    </div>
-
-    <div class="stat-row">
-      <span>Commandes</span>
-      <span>✓</span>
-    </div>
-
-    <div class="stat-row">
-      <span>Messages</span>
-      <span>✓</span>
-    </div>
-
-    <div class="stat-row">
-      <span>Profits du commerçant</span>
-      <span>✕</span>
-    </div>
-
-    <div class="stat-row">
-      <span>Dépenses privées</span>
-      <span>✕</span>
-    </div>
-
-  </div>
-
-  <button class="primary" onclick="shareStore()">
-    🔗 Partager ma boutique
-  </button>
-
-</section>
-
-
-<!-- PUBLICITE -->
-<section id="advertising" class="view">
-
-  <div class="page-title">Publicité & partage</div>
-
-  <div class="card">
-
-    <div class="form-group">
-      <label>Produit</label>
-
-      <select id="adProduct"></select>
-    </div>
-
-    <div class="form-group">
-      <label>Style de publicité</label>
-
-      <select id="adStyle">
-        <option>Élégant</option>
-        <option>Captivant</option>
-        <option>Professionnel</option>
-        <option>Urgent</option>
-        <option>Chaleureux</option>
-        <option>Tendance</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Public ciblé</label>
-
-      <select id="adTarget">
-        <option>Femmes</option>
-        <option>Hommes</option>
-        <option>Familles</option>
-        <option>Étudiants</option>
-        <option>Professionnels</option>
-        <option>Cadeau</option>
-      </select>
-    </div>
-
-    <button class="primary" onclick="generateAd()">
-      ✨ Générer la publicité
-    </button>
-
-  </div>
-
-  <div id="adResult" class="card" style="display:none"></div>
-
-</section>
-
-
-<!-- COMMANDES -->
-<section id="orders" class="view">
-
-  <div class="page-title">Commandes</div>
-
-  <div class="card">
-
-    <div class="stat-row">
-      <span>🆕 Nouvelles</span>
-      <strong>2</strong>
-    </div>
-
-    <div class="stat-row">
-      <span>📦 En préparation</span>
-      <strong>1</strong>
-    </div>
-
-    <div class="stat-row">
-      <span>🚚 En livraison</span>
-      <strong>1</strong>
-    </div>
-
-    <div class="stat-row">
-      <span>✓ Livrées</span>
-      <strong>8</strong>
-    </div>
-
-  </div>
-
-  <div class="item">
-
-    <div class="product-img">🛍️</div>
-
-    <div class="item-main">
-      <div class="item-title">Commande #MC-001</div>
-      <div class="item-sub">Robe × 2 · 70 000 FC</div>
-      <span class="badge orange">Nouvelle</span>
-    </div>
-
-    <div class="item-right">›</div>
-
-  </div>
-
-</section>
-
-
-<!-- MESSAGES -->
-<section id="messages" class="view">
-
-  <div class="page-title">Messages</div>
-
-  <div class="card">
-
-    <strong>💬 Espace client</strong>
-
-    <p class="small" style="margin-top:8px">
-      Les clients pourront envoyer des messages sans avoir accès à tes données privées.
-    </p>
-
-  </div>
-
-  <div class="item">
-
-    <div class="product-img">👩🏽</div>
-
-    <div class="item-main">
-      <div class="item-title">Aline M.</div>
-      <div class="item-sub">Bonjour, la robe est-elle encore disponible ?</div>
-    </div>
-
-    <div>›</div>
-
-  </div>
-
-</section>
-
-
-<!-- PAIEMENTS -->
-<section id="payments" class="view">
-
-  <div class="page-title">Paiements en ligne</div>
-
-  <div class="card">
-
-    <div class="info" style="padding:13px;border-radius:13px">
-      ℹ️ Le prototype prépare l'interface.
-      Les vrais paiements seront connectés à un fournisseur sécurisé dans une version avec backend.
-    </div>
-
-    <div class="section-title">Méthodes prévues</div>
-
-    <div class="stat-row">
-      <span>M-Pesa</span>
-      <span>À connecter</span>
-    </div>
-
-    <div class="stat-row">
-      <span>Airtel Money</span>
-      <span>À connecter</span>
-    </div>
-
-    <div class="stat-row">
-      <span>Orange Money</span>
-      <span>À connecter</span>
-    </div>
-
-    <div class="stat-row">
-      <span>Visa / Mastercard</span>
-      <span>À connecter</span>
-    </div>
-
-    <div class="stat-row">
-      <span>Paiement à la livraison</span>
-      <span>Prévu</span>
+    <div class="empty">
+      Aucune notification.
     </div>
 
   </div>
@@ -1641,318 +1759,34 @@ hr{
 </section>
 
 
-<!-- PARAMETRES -->
-<section id="settings" class="view">
-
-  <div class="page-title">Paramètres</div>
-
-  <div class="card">
-
-    <div class="form-group">
-      <label>Langue</label>
-
-      <select id="language">
-        <option value="fr">Français</option>
-        <option value="en">English</option>
-        <option value="sw">Kiswahili — bientôt</option>
-        <option value="es">Español — bientôt</option>
-        <option value="pt">Português — bientôt</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Devise principale</label>
-
-      <select id="currency">
-        <option>CDF</option>
-        <option>USD</option>
-        <option>EUR</option>
-        <option>GBP</option>
-        <option>KES</option>
-        <option>UGX</option>
-        <option>XAF</option>
-        <option>XOF</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Taux de change manuel</label>
-
-      <input id="exchangeRate" type="number" value="2350">
-
-      <div class="small" style="margin-top:5px">
-        Exemple : 1 USD = 2 350 CDF
-      </div>
-    </div>
-
-    <button class="primary" onclick="saveSettings()">
-      Enregistrer les paramètres
-    </button>
-
-  </div>
-
-  <div class="card">
-
-    <strong>🌍 Préparation internationale</strong>
-
-    <p class="small" style="margin-top:8px">
-      L'interface est conçue pour évoluer vers plusieurs langues et devises.
-    </p>
-
-  </div>
-
-</section>
-
-
-<!-- SECURITE -->
-<section id="security" class="view">
-
-  <div class="page-title">Sécurité & rôles</div>
-
-  <div class="card">
-
-    <div class="success" style="padding:13px;border-radius:13px">
-      🔐 Sécurité par conception
-    </div>
-
-    <div class="section-title">Rôles prévus</div>
-
-    <div class="stat-row">
-      <span>👑 Propriétaire</span>
-      <span>Accès complet</span>
-    </div>
-
-    <div class="stat-row">
-      <span>🧾 Vendeur</span>
-      <span>Ventes</span>
-    </div>
-
-    <div class="stat-row">
-      <span>💰 Caissier</span>
-      <span>Caisse</span>
-    </div>
-
-    <div class="stat-row">
-      <span>🛍️ Client</span>
-      <span>Boutique uniquement</span>
-    </div>
-
-  </div>
-
-  <div class="card">
-
-    <strong>Protection prévue pour la version réelle</strong>
-
-    <p class="small" style="margin-top:10px;line-height:1.6">
-      • Authentification sécurisée<br>
-      • Mots de passe hachés<br>
-      • Sessions sécurisées<br>
-      • Permissions par rôle<br>
-      • Protection contre les attaques courantes<br>
-      • Journal d'activité<br>
-      • Sauvegardes chiffrées<br>
-      • Isolation des données de chaque commerce<br>
-      • Vérification serveur des paiements
-    </p>
-
-  </div>
-
-</section>
-
-
-<!-- BACKUP -->
-<section id="backup" class="view">
-
-  <div class="page-title">Sauvegarde des données</div>
-
-  <div class="card">
-
-    <strong>💾 Données locales du prototype</strong>
-
-    <p class="small" style="margin-top:8px">
-      Cette version utilise le stockage du navigateur pour la démonstration.
-      Ce n'est pas encore une sauvegarde cloud sécurisée.
-    </p>
-
-    <button class="secondary" style="margin-top:12px" onclick="exportData()">
-      Télécharger mes données
-    </button>
-
-    <button class="secondary" style="margin-top:8px" onclick="resetDemo()">
-      Réinitialiser la démo
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- LABORATOIRE -->
-<section id="laboratory" class="view">
-
-  <div class="page-title">Laboratoire Mon Commerce</div>
-
-  <div class="card">
-
-    <strong>🧪 Faire évoluer Mon Commerce</strong>
-
-    <p class="small" style="margin-top:8px">
-      Les commerçants et les clients pourront proposer des améliorations.
-      Les demandes les plus utiles pourront devenir de nouvelles fonctionnalités.
-    </p>
-
-  </div>
-
-  <div class="menu-list">
-
-    <div class="menu-item">
-      <div class="menu-icon">💡</div>
-      <div class="menu-text">
-        <strong>Suggestions reçues</strong>
-        <small>Idées proposées par les utilisateurs</small>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <div class="menu-icon">🔥</div>
-      <div class="menu-text">
-        <strong>Fonctions les plus demandées</strong>
-        <small>Priorités de développement</small>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <div class="menu-icon">🧪</div>
-      <div class="menu-text">
-        <strong>Fonctions en test</strong>
-        <small>Avant publication officielle</small>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <div class="menu-icon">🚀</div>
-      <div class="menu-text">
-        <strong>Prochaines fonctionnalités</strong>
-        <small>Préparation des prochaines versions</small>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <div class="menu-icon">🐛</div>
-      <div class="menu-text">
-        <strong>Problèmes signalés</strong>
-        <small>Corrections à effectuer</small>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <div class="menu-icon">✓</div>
-      <div class="menu-text">
-        <strong>Fonctions publiées</strong>
-        <small>Fonctionnalités déjà disponibles</small>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="card" style="margin-top:12px">
-
-    <strong>💬 Ta suggestion</strong>
-
-    <textarea id="suggestion" style="margin-top:10px"
-      placeholder="Quelle fonctionnalité aimerais-tu voir dans Mon Commerce ?"></textarea>
-
-    <button class="primary" onclick="sendSuggestion()">
-      Envoyer la suggestion
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- HISTORIQUE -->
-<section id="history" class="view">
-
-  <div class="page-title">Historique des versions</div>
-
-  <div class="card">
-
-    <span class="tag">VERSION OFFICIELLE</span>
-
-    <h3 style="margin-top:8px">Mon Commerce 2.3 — Original</h3>
-
-    <p class="small" style="margin-top:8px">
-      Base officielle du projet.
-    </p>
-
-  </div>
-
-  <div class="card">
-
-    <strong>2.2</strong>
-
-    <p class="small" style="margin-top:6px">
-      Assistant, objectifs, alertes, sécurité, campagnes et fonctionnalités avancées.
-    </p>
-
-  </div>
-
-  <div class="card">
-
-    <strong>2.1</strong>
-
-    <p class="small" style="margin-top:6px">
-      Première évolution majeure du prototype.
-    </p>
-
-  </div>
-
-  <div class="card">
-
-    <strong>2.0</strong>
-
-    <p class="small" style="margin-top:6px">
-      Première grande version de gestion commerciale.
-    </p>
-
-  </div>
-
-  <div class="alert success">
-    🔄 Les futures améliorations partiront de 2.3 sans repartir de zéro.
-  </div>
-
-</section>
-
+</div>
 </main>
 
+</div>
 
-<!-- NAVIGATION -->
-<nav class="bottom-nav">
 
-  <button class="nav-btn active" data-view="dashboard" onclick="openView('dashboard')">
-    <span>⌂</span>
-    <span>Accueil</span>
+<!-- MOBILE NAV -->
+
+<nav class="mobile-nav">
+
+  <button onclick="showPage('dashboard')" data-page="dashboard">
+    🏠<br>Accueil
   </button>
 
-  <button class="nav-btn" data-view="sales" onclick="openView('sales')">
-    <span>🧾</span>
-    <span>Ventes</span>
+  <button onclick="showPage('sales')" data-page="sales">
+    💰<br>Ventes
   </button>
 
-  <button class="nav-btn" data-view="stock" onclick="openView('stock')">
-    <span>📦</span>
-    <span>Stock</span>
+  <button onclick="showPage('stock')" data-page="stock">
+    📦<br>Stock
   </button>
 
-  <button class="nav-btn" data-view="clients" onclick="openView('clients')">
-    <span>👥</span>
-    <span>Clients</span>
+  <button onclick="showPage('clients')" data-page="clients">
+    👥<br>Clients
   </button>
 
-  <button class="nav-btn" data-view="menu" onclick="openView('menu')">
-    <span>☰</span>
-    <span>Menu</span>
+  <button onclick="showPage('settings')" data-page="settings">
+    ☰<br>Menu
   </button>
 
 </nav>
@@ -1960,132 +1794,69 @@ hr{
 </div>
 
 
+<div id="toast" class="toast"></div>
+
+
 <script>
 
 /* =====================================================
-   MON COMMERCE 2.3 — ORIGINAL OFFICIEL
-   Prototype mobile-first
+   MON COMMERCE 2.3 ORIGINAL
+   DONNÉES
 ===================================================== */
 
-const STORAGE_KEY = "monCommerce23";
+const STORAGE_KEY = "monCommerce_2_3_original";
 
-const defaultState = {
+let state = {
+  installed:false,
 
   business:{
-    name:"Boutique Élégance",
+    name:"",
     owner:"",
     address:"",
     phone:"",
-    currency:"CDF",
+    type:"",
     language:"fr",
-    exchangeRate:2350
+    currency:"CDF"
   },
 
-  products:[
-    {
-      id:1,
-      name:"Robe",
-      category:"Vêtements",
-      reference:"ROB-001",
-      buy:15000,
-      sell:35000,
-      qty:10,
-      min:3,
-      supplier:"Kaba Fashion",
-      photo:""
-    },
-    {
-      id:2,
-      name:"T-shirt",
-      category:"Vêtements",
-      reference:"TSH-001",
-      buy:8000,
-      sell:15000,
-      qty:25,
-      min:5,
-      supplier:"Global Textile",
-      photo:""
-    },
-    {
-      id:3,
-      name:"Jean",
-      category:"Vêtements",
-      reference:"JEA-001",
-      buy:18000,
-      sell:30000,
-      qty:15,
-      min:4,
-      supplier:"Global Textile",
-      photo:""
-    },
-    {
-      id:4,
-      name:"Jupe",
-      category:"Vêtements",
-      reference:"JUP-001",
-      buy:12000,
-      sell:25000,
-      qty:8,
-      min:3,
-      supplier:"Kaba Fashion",
-      photo:""
-    },
-    {
-      id:5,
-      name:"Chemise",
-      category:"Vêtements",
-      reference:"CHE-001",
-      buy:10000,
-      sell:22000,
-      qty:12,
-      min:3,
-      supplier:"Global Textile",
-      photo:""
-    }
-  ],
-
+  products:[],
   sales:[],
   expenses:[],
-
-  suggestions:[]
+  clients:[],
+  suppliers:[],
+  orders:[]
 };
 
 
-let state = loadState();
-
+/* =====================================================
+   CHARGEMENT
+===================================================== */
 
 function loadState(){
 
-  try{
+  const saved = localStorage.getItem(STORAGE_KEY);
 
-    const saved = localStorage.getItem(STORAGE_KEY);
+  if(saved){
 
-    if(saved){
-
-      const parsed = JSON.parse(saved);
-
-      return {
-        ...defaultState,
-        ...parsed,
-        business:{
-          ...defaultState.business,
-          ...(parsed.business || {})
-        }
-      };
-
+    try{
+      state = JSON.parse(saved);
+    }catch(e){
+      console.error(e);
     }
-
-  }catch(error){
-
-    console.log(error);
 
   }
 
-  return JSON.parse(JSON.stringify(defaultState));
+  if(state.installed){
+    showApp();
+  }else{
+    document.getElementById("onboarding")
+      .classList.remove("hidden");
+  }
+
 }
 
 
-function persist(){
+function saveState(){
 
   localStorage.setItem(
     STORAGE_KEY,
@@ -2095,154 +1866,338 @@ function persist(){
 }
 
 
-function money(value){
+/* =====================================================
+   INSTALLATION
+===================================================== */
 
-  const currency =
-    state.business.currency || "CDF";
+document.getElementById("setupForm")
+.addEventListener("submit",function(e){
 
-  return new Intl.NumberFormat(
-    "fr-FR"
-  ).format(Math.round(value || 0))
-  + " "
-  + currency;
+  e.preventDefault();
+
+  state.business = {
+
+    name:document.getElementById("businessName").value.trim(),
+
+    owner:document.getElementById("ownerName").value.trim(),
+
+    address:document.getElementById("address").value.trim(),
+
+    phone:document.getElementById("phone").value.trim(),
+
+    type:document.getElementById("businessType").value,
+
+    language:document.getElementById("language").value,
+
+    currency:document.getElementById("currency").value
+
+  };
+
+  state.installed = true;
+
+  saveState();
+
+  showApp();
+
+  toast("Bienvenue dans Mon Commerce 🎉");
+
+});
+
+
+function activateDemo(){
+
+  /*
+    IMPORTANT :
+    Le mode démonstration est séparé des données
+    normales du commerçant.
+  */
+
+  state.installed = true;
+
+  state.business = {
+    name:"Boutique Démonstration",
+    owner:"Mode démonstration",
+    address:"Exemple",
+    phone:"",
+    type:"Vêtements & accessoires",
+    language:"fr",
+    currency:"CDF"
+  };
+
+  state.products = [
+
+    {
+      id:1,
+      name:"Robe",
+      reference:"DEMO-001",
+      purchase:15000,
+      sale:35000,
+      stock:10,
+      minimum:3,
+      category:"Vêtements"
+    },
+
+    {
+      id:2,
+      name:"T-shirt",
+      reference:"DEMO-002",
+      purchase:8000,
+      sale:18000,
+      stock:25,
+      minimum:5,
+      category:"Vêtements"
+    }
+
+  ];
+
+  saveState();
+
+  showApp();
+
+  toast("Mode démonstration activé");
 
 }
 
 
-function today(){
+/* =====================================================
+   AFFICHAGE APP
+===================================================== */
 
-  const d = new Date();
+function showApp(){
 
-  return d.toISOString().slice(0,10);
+  document.getElementById("onboarding")
+    .classList.add("hidden");
+
+  document.getElementById("app")
+    .classList.remove("hidden");
+
+  renderAll();
 
 }
 
 
-function openView(id){
+/* =====================================================
+   NAVIGATION
+===================================================== */
 
-  document.querySelectorAll(".view")
-    .forEach(v => v.classList.remove("active"));
+const titles = {
 
-  const view = document.getElementById(id);
+  dashboard:"Tableau de bord",
+  sales:"Ventes",
+  stock:"Stock",
+  products:"Produits",
+  clients:"Clients",
+  suppliers:"Fournisseurs",
+  expenses:"Dépenses",
+  reports:"Rapports",
+  orders:"Commandes",
+  store:"Boutique",
+  marketing:"Publicité",
+  assistant:"Assistant",
+  settings:"Paramètres",
+  notifications:"Notifications"
 
-  if(view){
-    view.classList.add("active");
+};
+
+
+function showPage(page){
+
+  document.querySelectorAll(".page")
+    .forEach(p=>p.classList.remove("active"));
+
+  const target =
+    document.getElementById(page);
+
+  if(target){
+    target.classList.add("active");
   }
 
-  document.querySelectorAll(".nav-btn")
-    .forEach(btn => {
-
+  document.querySelectorAll("[data-page]")
+    .forEach(btn=>{
       btn.classList.toggle(
         "active",
-        btn.dataset.view === id
+        btn.dataset.page===page
       );
-
     });
+
+  document.getElementById("pageTitle")
+    .textContent = titles[page] || "Mon Commerce";
 
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
 
-  if(id === "stock"){
-    renderProducts();
-  }
+}
 
-  if(id === "sales"){
-    renderSales();
-  }
 
-  if(id === "sale"){
-    prepareSaleForm();
-  }
+/* =====================================================
+   FORMAT MONNAIE
+===================================================== */
+
+function money(value){
+
+  const currency =
+    state.business.currency || "CDF";
+
+  return new Intl.NumberFormat(
+    "fr-FR",
+    {
+      maximumFractionDigits:0
+    }
+  ).format(value || 0)
+  + " "
+  + currency;
 
 }
 
 
-function toast(message){
+/* =====================================================
+   DASHBOARD
+===================================================== */
 
-  const old = document.getElementById("toast");
+function calculate(){
 
-  if(old) old.remove();
-
-  const div = document.createElement("div");
-
-  div.id = "toast";
-
-  div.textContent = message;
-
-  Object.assign(div.style,{
-    position:"fixed",
-    left:"50%",
-    bottom:"86px",
-    transform:"translateX(-50%)",
-    background:"#0d2a5c",
-    color:"white",
-    padding:"12px 18px",
-    borderRadius:"12px",
-    zIndex:"9999",
-    fontSize:"13px",
-    boxShadow:"0 8px 30px rgba(0,0,0,.2)",
-    maxWidth:"90%",
-    textAlign:"center"
-  });
-
-  document.body.appendChild(div);
-
-  setTimeout(()=>{
-    div.remove();
-  },2500);
-
-}
-
-
-function escapeHtml(text){
-
-  return String(text || "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-/* =========================
-   DATE
-========================= */
-
-function initDates(){
-
-  document.getElementById("currentDate").textContent =
-    new Date().toLocaleDateString(
-      "fr-FR",
-      {
-        day:"2-digit",
-        month:"2-digit",
-        year:"numeric"
-      }
+  const sales =
+    state.sales.reduce(
+      (sum,s)=>sum+(s.total||0),
+      0
     );
 
-  document.getElementById("saleDate").value = today();
+  const expenses =
+    state.expenses.reduce(
+      (sum,e)=>sum+(e.amount||0),
+      0
+    );
 
-  document.getElementById("expenseDate").value = today();
+  const cost =
+    state.sales.reduce(
+      (sum,s)=>sum+(s.purchaseTotal||0),
+      0
+    );
+
+  const profit =
+    sales-cost-expenses;
+
+  const cash =
+    sales-expenses;
+
+  return {
+    sales,
+    expenses,
+    cost,
+    profit,
+    cash
+  };
 
 }
 
 
-/* =========================
-   SALE FORM
-========================= */
+function renderDashboard(){
 
-function prepareSaleForm(){
+  const c = calculate();
+
+  document.getElementById("dashBusinessName")
+    .textContent =
+    state.business.name || "Mon Commerce";
+
+  document.getElementById("dashBusinessType")
+    .textContent =
+    state.business.type ||
+    "Votre activité commerciale";
+
+  document.getElementById("dashDate")
+    .textContent =
+    new Date().toLocaleDateString("fr-FR",{
+      dateStyle:"long"
+    });
+
+  document.getElementById("kpiSales")
+    .textContent = money(c.sales);
+
+  document.getElementById("kpiExpenses")
+    .textContent = money(c.expenses);
+
+  document.getElementById("kpiCost")
+    .textContent = money(c.cost);
+
+  document.getElementById("kpiProfit")
+    .textContent = money(c.profit);
+
+  document.getElementById("kpiCash")
+    .textContent = money(c.cash);
+
+  document.getElementById("reportSales")
+    .textContent = money(c.sales);
+
+  document.getElementById("reportExpenses")
+    .textContent = money(c.expenses);
+
+  document.getElementById("reportProfit")
+    .textContent = money(c.profit);
+
+}
+
+
+/* =====================================================
+   PRODUITS
+===================================================== */
+
+function renderProducts(){
+
+  const list =
+    document.getElementById("productsList");
 
   const select =
     document.getElementById("saleProduct");
 
-  select.innerHTML = "";
+  list.innerHTML = "";
 
-  state.products.forEach(product => {
+  select.innerHTML =
+    `<option value="">Choisir un produit</option>`;
+
+  if(state.products.length===0){
+
+    list.innerHTML =
+      `<div class="empty">
+        Aucun produit enregistré.
+      </div>`;
+
+    return;
+  }
+
+
+  state.products.forEach(product=>{
+
+    const row =
+      document.createElement("div");
+
+    row.className="data-row";
+
+    row.innerHTML=`
+
+      <div>
+        <strong>${escapeHTML(product.name)}</strong>
+        <br>
+        <small>
+          ${escapeHTML(product.category || "Sans catégorie")}
+        </small>
+      </div>
+
+      <div>
+        <strong>${product.stock}</strong>
+        <br>
+        <small>en stock</small>
+      </div>
+
+      <div>
+        ${money(product.sale)}
+      </div>
+
+    `;
+
+    list.appendChild(row);
+
 
     const option =
       document.createElement("option");
@@ -2250,119 +2205,302 @@ function prepareSaleForm(){
     option.value = product.id;
 
     option.textContent =
-      `${product.name} — ${money(product.sell)} — Stock ${product.qty}`;
+      `${product.name} — ${money(product.sale)}`;
 
     select.appendChild(option);
 
   });
 
-  fillSalePrices();
-
 }
 
 
-function fillSalePrices(){
+/* =====================================================
+   STOCK
+===================================================== */
 
-  const id =
-    Number(document.getElementById("saleProduct").value);
+function renderStock(){
 
-  const product =
-    state.products.find(p => p.id === id);
+  const tbody =
+    document.getElementById("stockTable");
 
-  if(!product) return;
+  tbody.innerHTML="";
 
-  document.getElementById("saleBuyPrice").value =
-    product.buy;
+  let total=0;
+  let low=0;
+  let out=0;
 
-  document.getElementById("salePrice").value =
-    product.sell;
+  state.products.forEach(product=>{
 
-  calculateSale();
+    total += Number(product.stock)||0;
 
-}
+    if(product.stock<=0){
+      out++;
+    }else if(
+      product.minimum>0 &&
+      product.stock<=product.minimum
+    ){
+      low++;
+    }
+
+    let status =
+      `<span class="badge green">Normal</span>`;
+
+    if(product.stock<=0){
+
+      status =
+        `<span class="badge red">Rupture</span>`;
+
+    }else if(
+      product.minimum>0 &&
+      product.stock<=product.minimum
+    ){
+
+      status =
+        `<span class="badge orange">Stock faible</span>`;
+
+    }
 
 
-function calculateSale(){
+    tbody.innerHTML += `
 
-  const id =
-    Number(document.getElementById("saleProduct").value);
+      <tr>
 
-  const product =
-    state.products.find(p => p.id === id);
+        <td>
+          <strong>
+            ${escapeHTML(product.name)}
+          </strong>
+        </td>
 
-  if(!product) return;
+        <td>
+          ${escapeHTML(product.reference || "-")}
+        </td>
 
-  const qty =
-    Math.max(
-      1,
-      Number(document.getElementById("saleQty").value) || 1
+        <td>${product.stock}</td>
+
+        <td>${money(product.purchase)}</td>
+
+        <td>${status}</td>
+
+      </tr>
+
+    `;
+
+  });
+
+
+  document.getElementById("stockTotal")
+    .textContent=total;
+
+  document.getElementById("stockLow")
+    .textContent=low;
+
+  document.getElementById("stockOut")
+    .textContent=out;
+
+
+  const alerts =
+    document.getElementById("alerts");
+
+
+  const problematic =
+    state.products.filter(
+      p=>p.stock<=p.minimum
     );
 
-  const total =
-    product.sell * qty;
 
-  const profit =
-    (product.sell - product.buy) * qty;
+  if(problematic.length===0){
 
-  document.getElementById("saleTotal").textContent =
-    money(total);
+    alerts.innerHTML=
+      `<div class="empty">
+        Aucune alerte de stock.
+      </div>`;
 
-  document.getElementById("saleProfit").textContent =
-    money(profit);
+  }else{
 
-}
+    alerts.innerHTML =
+      problematic.map(p=>`
 
+        <div class="data-row">
 
-function changeQty(amount){
+          <span>
+            📦 ${escapeHTML(p.name)}
+          </span>
 
-  const input =
-    document.getElementById("saleQty");
+          <span class="badge orange">
+            ${p.stock<=0
+              ?"Rupture"
+              :"Stock faible"}
+          </span>
 
-  let value =
-    Number(input.value) || 1;
+        </div>
 
-  value += amount;
-
-  if(value < 1) value = 1;
-
-  input.value = value;
-
-  calculateSale();
-
-}
-
-
-function saveSale(){
-
-  const id =
-    Number(document.getElementById("saleProduct").value);
-
-  const product =
-    state.products.find(p => p.id === id);
-
-  if(!product){
-
-    toast("Choisis un produit.");
-
-    return;
+      `).join("");
 
   }
 
-  const qty =
-    Math.max(
-      1,
-      Number(document.getElementById("saleQty").value) || 1
+}
+
+
+/* =====================================================
+   AJOUT PRODUIT
+===================================================== */
+
+document.getElementById("productForm")
+.addEventListener("submit",function(e){
+
+  e.preventDefault();
+
+  const product={
+
+    id:Date.now(),
+
+    name:
+      document.getElementById("productName")
+      .value.trim(),
+
+    reference:
+      document.getElementById("productReference")
+      .value.trim(),
+
+    purchase:
+      Number(
+        document.getElementById("productPurchase")
+        .value
+      )||0,
+
+    sale:
+      Number(
+        document.getElementById("productSale")
+        .value
+      )||0,
+
+    stock:
+      Number(
+        document.getElementById("productStock")
+        .value
+      )||0,
+
+    minimum:
+      Number(
+        document.getElementById("productMinimum")
+        .value
+      )||0,
+
+    category:
+      document.getElementById("productCategory")
+      .value.trim()
+
+  };
+
+
+  state.products.push(product);
+
+  saveState();
+
+  this.reset();
+
+  renderAll();
+
+  toast("Produit ajouté 📦");
+
+});
+
+
+/* =====================================================
+   VENTE
+===================================================== */
+
+document.getElementById("saleProduct")
+.addEventListener("change",function(){
+
+  const product =
+    state.products.find(
+      p=>p.id==this.value
     );
 
-  if(qty > product.qty){
+  if(!product) return;
+
+  document.getElementById("salePrice")
+    .value=product.sale;
+
+  document.getElementById("salePurchasePrice")
+    .value=product.purchase;
+
+});
+
+
+document.getElementById("saleForm")
+.addEventListener("submit",function(e){
+
+  e.preventDefault();
+
+  const product =
+    state.products.find(
+      p=>p.id==
+      document.getElementById("saleProduct").value
+    );
+
+
+  if(!product){
+
+    toast("Choisissez un produit.");
+
+    return;
+  }
+
+
+  const quantity =
+    Number(
+      document.getElementById("saleQuantity").value
+    );
+
+
+  if(quantity<=0){
+
+    toast("Quantité invalide.");
+
+    return;
+  }
+
+
+  if(quantity>product.stock){
 
     toast("Stock insuffisant.");
 
     return;
-
   }
 
-  const sale = {
+
+  const salePrice =
+    Number(
+      document.getElementById("salePrice").value
+    )||0;
+
+
+  const purchasePrice =
+    Number(
+      document.getElementById("salePurchasePrice").value
+    )||0;
+
+
+  const discount =
+    Number(
+      document.getElementById("saleDiscount").value
+    )||0;
+
+
+  const total =
+    Math.max(
+      0,
+      quantity*salePrice-discount
+    );
+
+
+  const purchaseTotal =
+    quantity*purchasePrice;
+
+
+  state.sales.unshift({
 
     id:Date.now(),
 
@@ -2370,328 +2508,94 @@ function saveSale(){
 
     product:product.name,
 
-    qty,
+    quantity,
 
-    buy:product.buy,
+    salePrice,
 
-    sell:product.sell,
+    purchasePrice,
 
-    total:product.sell * qty,
+    discount,
 
-    profit:(product.sell - product.buy) * qty,
+    total,
+
+    purchaseTotal,
 
     client:
-      document.getElementById("saleClient").value.trim(),
+      document.getElementById("saleClient")
+      .value.trim(),
 
     payment:
-      document.getElementById("paymentMethod").value,
+      document.getElementById("salePayment")
+      .value,
 
-    date:
-      document.getElementById("saleDate").value || today()
-
-  };
-
-  state.sales.unshift(sale);
-
-  product.qty -= qty;
-
-  persist();
-
-  refreshDashboard();
-
-  toast("✓ Vente enregistrée.");
-
-  document.getElementById("saleQty").value = 1;
-
-  document.getElementById("saleClient").value = "";
-
-  openView("sales");
-
-}
-
-
-/* =========================
-   EXPENSES
-========================= */
-
-function saveExpense(){
-
-  const amount =
-    Number(document.getElementById("expenseAmount").value);
-
-  if(!amount || amount <= 0){
-
-    toast("Entre un montant valide.");
-
-    return;
-
-  }
-
-  state.expenses.unshift({
-
-    id:Date.now(),
-
-    category:
-      document.getElementById("expenseCategory").value,
-
-    amount,
-
-    date:
-      document.getElementById("expenseDate").value || today(),
-
-    payment:
-      document.getElementById("expensePayment").value,
-
-    note:
-      document.getElementById("expenseNote").value.trim()
+    date:new Date().toISOString()
 
   });
 
-  persist();
 
-  refreshDashboard();
-
-  document.getElementById("expenseAmount").value = "";
-
-  document.getElementById("expenseNote").value = "";
-
-  toast("✓ Dépense enregistrée.");
-
-  openView("dashboard");
-
-}
+  product.stock -= quantity;
 
 
-/* =========================
-   PRODUCTS
-========================= */
+  saveState();
 
-function showAddProduct(){
+  this.reset();
 
-  document.getElementById("productName").value = "";
+  renderAll();
 
-  document.getElementById("productCategory").value = "";
+  toast("Vente enregistrée 💰");
 
-  document.getElementById("productReference").value = "";
-
-  document.getElementById("productBuy").value = "";
-
-  document.getElementById("productSell").value = "";
-
-  document.getElementById("productQty").value = 0;
-
-  document.getElementById("productMin").value = 3;
-
-  document.getElementById("productSupplier").value = "";
-
-  openView("addProduct");
-
-}
+});
 
 
-function saveProduct(){
+/* =====================================================
+   HISTORIQUE VENTES
+===================================================== */
 
-  const name =
-    document.getElementById("productName").value.trim();
+function renderSales(){
 
-  const buy =
-    Number(document.getElementById("productBuy").value);
+  const box =
+    document.getElementById("salesHistory");
 
-  const sell =
-    Number(document.getElementById("productSell").value);
+  if(state.sales.length===0){
 
-  const qty =
-    Number(document.getElementById("productQty").value) || 0;
-
-  const min =
-    Number(document.getElementById("productMin").value) || 0;
-
-  if(!name || !buy || !sell){
-
-    toast("Complète les informations principales.");
+    box.innerHTML=
+      `<div class="empty">
+        Aucune vente enregistrée.
+      </div>`;
 
     return;
-
   }
 
-  const product = {
 
-    id:Date.now(),
+  box.innerHTML =
+    state.sales.map(s=>`
 
-    name,
+      <div class="data-row">
 
-    category:
-      document.getElementById("productCategory").value.trim(),
+        <div>
 
-    reference:
-      document.getElementById("productReference").value.trim(),
+          <strong>
+            ${escapeHTML(s.product)}
+          </strong>
 
-    buy,
-
-    sell,
-
-    qty,
-
-    min,
-
-    supplier:
-      document.getElementById("productSupplier").value.trim(),
-
-    photo:""
-
-  };
-
-  state.products.push(product);
-
-  persist();
-
-  renderProducts();
-
-  prepareSaleForm();
-
-  toast("✓ Produit ajouté.");
-
-  openView("stock");
-
-}
-
-
-function renderProducts(){
-
-  const container =
-    document.getElementById("productList");
-
-  const search =
-    (document.getElementById("stockSearch")?.value || "")
-      .toLowerCase()
-      .trim();
-
-  const products =
-    state.products.filter(product =>
-      product.name.toLowerCase().includes(search) ||
-      String(product.reference || "")
-        .toLowerCase()
-        .includes(search) ||
-      String(product.category || "")
-        .toLowerCase()
-        .includes(search)
-    );
-
-  if(!products.length){
-
-    container.innerHTML =
-      `<div class="empty">Aucun produit trouvé.</div>`;
-
-    return;
-
-  }
-
-  container.innerHTML =
-    products.map(product => {
-
-      const low =
-        product.qty <= product.min;
-
-      const potentialProfit =
-        (product.sell - product.buy) * product.qty;
-
-      return `
-
-      <div class="item">
-
-        <div class="product-img">
-          📦
-        </div>
-
-        <div class="item-main">
-
-          <div class="item-title">
-            ${escapeHtml(product.name)}
-          </div>
-
-          <div class="item-sub">
-            ${escapeHtml(product.category || "Produit")}
-            · ${escapeHtml(product.reference || "Sans référence")}
-          </div>
-
-          <span class="badge ${low ? "red" : "green"}">
-            ${product.qty} en stock
-          </span>
-
-        </div>
-
-        <div class="item-right">
-
-          ${money(product.sell)}
+          <br>
 
           <small>
-            Profit potentiel
-            ${money(potentialProfit)}
+            ${s.quantity} × ${money(s.salePrice)}
           </small>
 
         </div>
 
-      </div>
+        <div>
 
-      `;
+          <strong>
+            ${money(s.total)}
+          </strong>
 
-    }).join("");
-
-}
-
-
-/* =========================
-   SALES LIST
-========================= */
-
-function renderSales(){
-
-  const container =
-    document.getElementById("salesList");
-
-  if(!state.sales.length){
-
-    container.innerHTML = `
-      <div class="empty">
-        Aucune vente enregistrée pour le moment.
-      </div>
-    `;
-
-    return;
-
-  }
-
-  container.innerHTML =
-    state.sales.map(sale => `
-
-      <div class="item">
-
-        <div class="product-img">
-          🧾
-        </div>
-
-        <div class="item-main">
-
-          <div class="item-title">
-            ${escapeHtml(sale.product)}
-          </div>
-
-          <div class="item-sub">
-            ${sale.qty} × ${money(sale.sell)}
-          </div>
-
-          <span class="badge green">
-            ${escapeHtml(sale.payment)}
-          </span>
-
-        </div>
-
-        <div class="item-right">
-
-          ${money(sale.total)}
+          <br>
 
           <small>
-            +${money(sale.profit)}
+            ${escapeHTML(s.payment)}
           </small>
 
         </div>
@@ -2703,269 +2607,270 @@ function renderSales(){
 }
 
 
-/* =========================
-   DASHBOARD
-========================= */
+/* =====================================================
+   DÉPENSES
+===================================================== */
 
-function refreshDashboard(){
+document.getElementById("expenseForm")
+.addEventListener("submit",function(e){
 
-  const recordedSales =
-    state.sales.reduce(
-      (sum,sale)=>sum + sale.total,
-      0
-    );
-
-  const recordedExpenses =
-    state.expenses.reduce(
-      (sum,expense)=>sum + expense.amount,
-      0
-    );
-
-  const recordedCost =
-    state.sales.reduce(
-      (sum,sale)=>sum + (sale.buy * sale.qty),
-      0
-    );
-
-  /*
-    Les valeurs de démonstration servent à conserver
-    le visuel de la maquette même avant l'ajout
-    des premières transactions.
-  */
-
-  const baseSales = 125000;
-
-  const baseExpenses = 20000;
-
-  const baseCost = 70000;
-
-  const sales =
-    baseSales + recordedSales;
-
-  const expenses =
-    baseExpenses + recordedExpenses;
-
-  const cost =
-    baseCost + recordedCost;
-
-  const profit =
-    sales - expenses - cost;
-
-  const available =
-    sales - expenses - cost;
-
-  document.getElementById("kpiSales").textContent =
-    money(sales);
-
-  document.getElementById("kpiExpenses").textContent =
-    money(expenses);
-
-  document.getElementById("kpiCost").textContent =
-    money(cost);
-
-  document.getElementById("kpiProfit").textContent =
-    money(profit);
-
-  document.getElementById("availableMoney").textContent =
-    money(available);
-
-  document.getElementById("todaySales").textContent =
-    money(sales);
-
-  document.getElementById("todayProfit").textContent =
-    money(profit);
-
-  const stockCount =
-    state.products.reduce(
-      (sum,p)=>sum + Number(p.qty || 0),
-      0
-    );
-
-  document.getElementById("stockCount").textContent =
-    stockCount;
-
-}
+  e.preventDefault();
 
 
-/* =========================
-   PROFILE
-========================= */
+  const amount =
+    Number(
+      document.getElementById("expenseAmount")
+      .value
+    )||0;
 
-function saveProfile(){
 
-  state.business.name =
-    document.getElementById("businessName").value.trim()
-    || "Boutique Élégance";
+  if(amount<=0){
 
-  state.business.owner =
-    document.getElementById("ownerName").value.trim();
+    toast("Montant invalide.");
 
-  state.business.address =
-    document.getElementById("businessAddress").value.trim();
+    return;
+  }
 
-  state.business.phone =
-    document.getElementById("businessPhone").value.trim();
 
-  document.getElementById("storeNameDisplay").textContent =
-    state.business.name;
+  state.expenses.unshift({
 
-  document.getElementById("menuStoreName").textContent =
-    state.business.name;
+    id:Date.now(),
 
-  persist();
+    category:
+      document.getElementById("expenseCategory")
+      .value,
 
-  toast("✓ Profil enregistré.");
+    amount,
+
+    description:
+      document.getElementById("expenseDescription")
+      .value.trim(),
+
+    date:new Date().toISOString()
+
+  });
+
+
+  saveState();
+
+  this.reset();
+
+  renderAll();
+
+  toast("Dépense enregistrée 💸");
+
+});
+
+
+function renderExpenses(){
+
+  const box =
+    document.getElementById("expensesHistory");
+
+
+  if(state.expenses.length===0){
+
+    box.innerHTML=
+      `<div class="empty">
+        Aucune dépense enregistrée.
+      </div>`;
+
+    return;
+  }
+
+
+  box.innerHTML =
+    state.expenses.map(e=>`
+
+      <div class="data-row">
+
+        <div>
+
+          <strong>
+            ${escapeHTML(e.category)}
+          </strong>
+
+          <br>
+
+          <small>
+            ${escapeHTML(e.description || "")}
+          </small>
+
+        </div>
+
+        <strong>
+          ${money(e.amount)}
+        </strong>
+
+      </div>
+
+    `).join("");
 
 }
 
 
-/* =========================
-   SETTINGS
-========================= */
+/* =====================================================
+   CLIENTS
+===================================================== */
 
-function saveSettings(){
+function renderClients(){
 
-  state.business.language =
-    document.getElementById("language").value;
+  const box =
+    document.getElementById("clientsList");
 
-  state.business.currency =
-    document.getElementById("currency").value;
+  if(state.clients.length===0){
 
-  state.business.exchangeRate =
-    Number(document.getElementById("exchangeRate").value)
-    || 2350;
+    box.innerHTML=
+      `<div class="empty">
+        Aucun client enregistré.<br>
+        Les clients apparaîtront ici après leur création.
+      </div>`;
 
-  persist();
-
-  refreshDashboard();
-
-  toast("✓ Paramètres enregistrés.");
-
-}
-
-
-/* =========================
-   ADVERTISING
-========================= */
-
-function generateAd(){
-
-  const id =
-    Number(document.getElementById("adProduct").value);
-
-  const product =
-    state.products.find(p => p.id === id);
-
-  if(!product) return;
-
-  const style =
-    document.getElementById("adStyle").value;
-
-  const target =
-    document.getElementById("adTarget").value;
-
-  const text =
-
-`✨ NOUVEAUTÉ CHEZ ${state.business.name.toUpperCase()} ✨
-
-Découvrez notre ${product.name} !
-
-💰 Prix : ${money(product.sell)}
-📦 Disponibilité : ${product.qty} en stock
-
-Style : ${style}
-Pour : ${target}
-
-📍 ${state.business.address || "Adresse du commerce"}
-📱 ${state.business.phone || "Contact WhatsApp"}
-
-Écrivez-nous pour commander ou obtenir plus d'informations. 🛍️`;
-
-  const result =
-    document.getElementById("adResult");
-
-  result.style.display = "block";
-
-  result.innerHTML = `
-
-    <strong>📣 Publicité générée</strong>
-
-    <p style="
-      white-space:pre-line;
-      margin-top:12px;
-      font-size:13px;
-      line-height:1.6;
-    ">
-      ${escapeHtml(text)}
-    </p>
-
-    <button class="secondary"
-      style="margin-top:10px"
-      onclick="copyAd()">
-      📋 Copier
-    </button>
-
-    <button class="secondary"
-      style="margin-top:10px"
-      onclick="shareAd()">
-      📤 Partager
-    </button>
-
-  `;
-
-  window.currentAd = text;
-
-}
-
-
-function copyAd(){
-
-  if(!window.currentAd) return;
-
-  navigator.clipboard?.writeText(
-    window.currentAd
-  );
-
-  toast("✓ Publicité copiée.");
-
-}
-
-
-async function shareAd(){
-
-  if(!window.currentAd) return;
-
-  if(navigator.share){
-
-    try{
-
-      await navigator.share({
-        title:"Publicité Mon Commerce",
-        text:window.currentAd
-      });
-
-    }catch(e){}
-
-  }else{
-
-    copyAd();
-
+    return;
   }
 
 }
 
 
-/* =========================
-   SHOP SHARE
-========================= */
+/* =====================================================
+   BOUTIQUE
+===================================================== */
 
-async function shareStore(){
+function renderStore(){
 
-  const url =
-    window.location.href;
+  document.getElementById("publicStoreName")
+    .textContent =
+    state.business.name || "Votre boutique";
+
+
+  const box =
+    document.getElementById("publicProducts");
+
+
+  if(state.products.length===0){
+
+    box.innerHTML=
+      `<div class="empty">
+        Aucun produit disponible.
+      </div>`;
+
+    return;
+  }
+
+
+  box.innerHTML =
+    state.products.map(p=>`
+
+      <div class="data-row">
+
+        <div>
+
+          <strong>
+            ${escapeHTML(p.name)}
+          </strong>
+
+          <br>
+
+          <small>
+            ${p.stock>0
+              ?"Disponible"
+              :"Rupture"}
+          </small>
+
+        </div>
+
+        <strong>
+          ${money(p.sale)}
+        </strong>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+/* =====================================================
+   PARAMÈTRES
+===================================================== */
+
+function renderSettings(){
+
+  document.getElementById("settingBusinessName")
+    .value=state.business.name || "";
+
+  document.getElementById("settingOwner")
+    .value=state.business.owner || "";
+
+  document.getElementById("settingAddress")
+    .value=state.business.address || "";
+
+  document.getElementById("settingPhone")
+    .value=state.business.phone || "";
+
+  document.getElementById("settingLanguage")
+    .value=state.business.language || "fr";
+
+  document.getElementById("settingCurrency")
+    .value=state.business.currency || "CDF";
+
+}
+
+
+function saveSettings(){
+
+  state.business.name =
+    document.getElementById("settingBusinessName")
+    .value.trim();
+
+  state.business.owner =
+    document.getElementById("settingOwner")
+    .value.trim();
+
+  state.business.address =
+    document.getElementById("settingAddress")
+    .value.trim();
+
+  state.business.phone =
+    document.getElementById("settingPhone")
+    .value.trim();
+
+  state.business.language =
+    document.getElementById("settingLanguage")
+    .value;
+
+  state.business.currency =
+    document.getElementById("settingCurrency")
+    .value;
+
+
+  saveState();
+
+  renderAll();
+
+  toast("Paramètres enregistrés ⚙️");
+
+}
+
+
+/* =====================================================
+   PUBLICITÉ
+===================================================== */
+
+async function shareAd(){
 
   const text =
-    `Découvrez ${state.business.name} sur Mon Commerce 🛍️`;
+    document.getElementById("adText")
+    .value.trim();
+
+
+  if(!text){
+
+    toast("Écrivez votre publicité.");
+
+    return;
+  }
+
 
   if(navigator.share){
 
@@ -2973,69 +2878,25 @@ async function shareStore(){
 
       await navigator.share({
         title:state.business.name,
-        text,
-        url
+        text
       });
 
     }catch(e){}
 
   }else{
 
-    navigator.clipboard?.writeText(
-      `${text}\n${url}`
-    );
+    await navigator.clipboard.writeText(text);
 
-    toast("✓ Lien copié.");
+    toast("Publicité copiée.");
 
   }
 
 }
 
 
-/* =========================
-   SUGGESTION
-========================= */
-
-function sendSuggestion(){
-
-  const input =
-    document.getElementById("suggestion");
-
-  const text =
-    input.value.trim();
-
-  if(!text){
-
-    toast("Écris d'abord ta suggestion.");
-
-    return;
-
-  }
-
-  state.suggestions.push({
-
-    id:Date.now(),
-
-    text,
-
-    date:new Date().toISOString(),
-
-    status:"reçue"
-
-  });
-
-  persist();
-
-  input.value = "";
-
-  toast("✓ Suggestion enregistrée.");
-
-}
-
-
-/* =========================
-   BACKUP DEMO
-========================= */
+/* =====================================================
+   EXPORT
+===================================================== */
 
 function exportData(){
 
@@ -3046,131 +2907,119 @@ function exportData(){
       2
     );
 
+
   const blob =
     new Blob(
       [data],
-      {
-        type:"application/json"
-      }
+      {type:"application/json"}
     );
+
 
   const url =
     URL.createObjectURL(blob);
 
+
   const a =
     document.createElement("a");
 
-  a.href = url;
+  a.href=url;
 
-  a.download =
-    "mon-commerce-2.3-sauvegarde.json";
+  a.download=
+    "mon-commerce-sauvegarde.json";
 
   a.click();
 
   URL.revokeObjectURL(url);
 
-  toast("✓ Sauvegarde préparée.");
+  toast("Sauvegarde exportée 💾");
 
 }
 
 
-function resetDemo(){
+/* =====================================================
+   RESET
+===================================================== */
 
-  if(!confirm(
-    "Réinitialiser les données de démonstration ?"
-  )) return;
+function resetCommerce(){
 
-  state =
-    JSON.parse(
-      JSON.stringify(defaultState)
+  const confirmReset =
+    confirm(
+      "Voulez-vous vraiment réinitialiser ce commerce ? Toutes les données locales seront supprimées."
     );
 
-  persist();
 
-  refreshDashboard();
+  if(!confirmReset) return;
 
-  renderProducts();
 
-  renderSales();
+  localStorage.removeItem(STORAGE_KEY);
 
-  toast("✓ Démo réinitialisée.");
+  location.reload();
 
 }
 
 
-/* =========================
-   INIT
-========================= */
+/* =====================================================
+   UTILITAIRES
+===================================================== */
 
-function init(){
+function escapeHTML(value){
 
-  initDates();
-
-  refreshDashboard();
-
-  renderProducts();
-
-  renderSales();
-
-  prepareSaleForm();
-
-  const adSelect =
-    document.getElementById("adProduct");
-
-  adSelect.innerHTML = "";
-
-  state.products.forEach(product => {
-
-    const option =
-      document.createElement("option");
-
-    option.value = product.id;
-
-    option.textContent =
-      product.name;
-
-    adSelect.appendChild(option);
-
-  });
-
-  document.getElementById("storeNameDisplay").textContent =
-    state.business.name;
-
-  document.getElementById("menuStoreName").textContent =
-    state.business.name;
-
-  document.getElementById("businessName").value =
-    state.business.name;
-
-  document.getElementById("ownerName").value =
-    state.business.owner;
-
-  document.getElementById("businessAddress").value =
-    state.business.address;
-
-  document.getElementById("businessPhone").value =
-    state.business.phone;
-
-  document.getElementById("language").value =
-    state.business.language;
-
-  document.getElementById("currency").value =
-    state.business.currency;
-
-  document.getElementById("exchangeRate").value =
-    state.business.exchangeRate;
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
 
-document
-  .getElementById("saleProduct")
-  .addEventListener(
-    "change",
-    fillSalePrices
-  );
+function toast(message){
 
-init();
+  const box =
+    document.getElementById("toast");
+
+  box.textContent=message;
+
+  box.classList.add("show");
+
+  setTimeout(()=>{
+    box.classList.remove("show");
+  },2500);
+
+}
+
+
+/* =====================================================
+   RENDU GLOBAL
+===================================================== */
+
+function renderAll(){
+
+  renderDashboard();
+
+  renderProducts();
+
+  renderStock();
+
+  renderSales();
+
+  renderExpenses();
+
+  renderClients();
+
+  renderStore();
+
+  renderSettings();
+
+}
+
+
+/* =====================================================
+   INITIALISATION
+===================================================== */
+
+loadState();
 
 </script>
 
